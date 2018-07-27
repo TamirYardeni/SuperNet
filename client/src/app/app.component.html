@@ -1,0 +1,16 @@
+<mat-toolbar color="primary" class="toolbar">
+  <img class="logo" id="logo" src="../assets/images/logo2.png">
+    <nav class="button-row">
+      <button *ngIf="currentUser.isAdmin" mat-button color="white" (click)="menuButtonClicked('users')">Users</button>
+      <button *ngIf="currentUser.isAdmin" mat-button color="white" (click)="menuButtonClicked('products')">Products</button>
+      <button *ngIf="currentUser.isAdmin" mat-button color="white" (click)="menuButtonClicked('statistics')">Statistics</button>
+
+      <button *ngIf="!currentUser.isAdmin" mat-button color="white" (click)="menuButtonClicked('profile')">Profile</button>
+      <button *ngIf="!currentUser.isAdmin" mat-button color="white" (click)="menuButtonClicked('products')">Products</button>
+      <button *ngIf="!currentUser.isAdmin" mat-button color="white" (click)="menuButtonClicked('cart')">Pay</button>
+
+
+      <button *ngIf="currentUser" mat-button color="white" (click)="logout()">Logout!</button>
+    </nav>
+  </mat-toolbar>
+<router-outlet></router-outlet>

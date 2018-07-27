@@ -1,0 +1,56 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+body {
+  background-color: #e0e0e0;
+}
+
+.button-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.button-row button {
+  margin: 0.5vw;
+}
+
+.logo {
+  height: 100%;
+}
+
+.toolbar {
+  margin-bottom: 3vh;
+  
+}
+
+mat-toolbar.toolbar.mat-toolbar.mat-primary.mat-toolbar-single-row {
+  background-image: url(/assets/images/matos.jpg);
+}
+
+#myCanvas {
+  background: pink;
+}
+
+footer p {
+  font-size: 11px;
+  margin-left: 10px;
+  font-family: myFirstFont;
+}
+
+aside {
+  width: 60%;
+  padding-left: .5rem;
+  margin-left: .5rem;
+  float: right;
+  box-shadow: inset 5px 0 5px -5px #29627e;
+  font-style: italic;
+  color: #29627e;
+}
+
+aside > video {
+  margin: .5rem;
+}
+
+/*@font-face {
+  font-family: myFirstFont;
+  src: url(../../assets/fonts/themify.woff);
+}*/
