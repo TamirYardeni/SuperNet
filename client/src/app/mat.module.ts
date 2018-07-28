@@ -5,6 +5,7 @@ import {
   BrowserAnimationsModule
 } from '@angular/platform-browser/animations';
 import {
+  MatFormFieldModule,
   MatButtonModule,
   MatTabsModule,
   MatCardModule,
@@ -20,11 +21,14 @@ import {
   MatToolbar,
   MatToolbarBase,
   MatToolbarRow,
-  MatTableModule
+  MatTableModule,
+  MatCheckboxModule,
+  MatSelectModule
 } from '@angular/material';
 
 const mats = [
-    MatButtonModule,
+  MatFormFieldModule,
+  MatButtonModule,
   MatTabsModule,
   MatCardModule,
   MatMenuModule,
@@ -34,7 +38,9 @@ const mats = [
   MatInputModule,
   MatChipsModule,
   MatDividerModule,
-  MatTableModule
+  MatTableModule,
+  MatCheckboxModule,
+  MatSelectModule
 ]
 
 @NgModule({

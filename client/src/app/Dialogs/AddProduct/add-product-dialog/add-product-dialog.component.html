@@ -1,0 +1,27 @@
+<form [formGroup]="myform" #addProductForm novalidate class="add-product-form" (ngSubmit)="onSubmit()">
+  <mat-form-field class="add-product-field-full-width">
+    <input matInput class="form-control" formControlName="name" placeholder="Name" value="">
+  </mat-form-field>
+
+  <mat-form-field class="add-product-field-full-width">
+    <input matInput class="form-control" formControlName="price" placeholder="Price" value="">
+  </mat-form-field>
+
+  <mat-form-field class="add-product-field-full-width">
+    <input matInput class="form-control" formControlName="url" placeholder="photo url" value="">
+  </mat-form-field>
+
+  <mat-checkbox class="form-control" formControlName="isWeight">According to weight</mat-checkbox>
+ 
+  <mat-form-field class="add-product-field-full-width">
+    <input matInput class="form-control" formControlName="weight" placeholder="Weight" value="">
+  </mat-form-field>
+  
+  <mat-select  class="form-control" formControlName="category" placeholder="Categoty">
+    <mat-option *ngFor="let category of categories" [value]="category.value">
+      {{ category.viewValue }}
+    </mat-option>
+  </mat-select>
+  <pre>{{myform.value | json}}</pre>
+    <button mat-button type="submit" class="btn btn-primary">Click me!</button>
+</form>

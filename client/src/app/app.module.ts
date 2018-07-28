@@ -27,6 +27,7 @@ import { UserManageComponent } from './user-manage/user-manage.component';
 import { ProductManageComponent } from './product-manage/product-manage.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { CartComponent } from './cart/cart.component';
+import { AddProductDialogComponent } from './Dialogs/AddProduct/add-product-dialog/add-product-dialog.component';
 
 export function getAuthHttp(http: Http) {
   return new AuthHttp(new AuthConfig({
@@ -48,7 +49,8 @@ export function getAuthHttp(http: Http) {
     UserManageComponent,
     ProductManageComponent,
     StatisticsComponent,
-    CartComponent
+    CartComponent,
+    AddProductDialogComponent
   ],
   exports: [
     ReactiveFormsModule
@@ -79,6 +81,7 @@ export function getAuthHttp(http: Http) {
       deps: [Http]
     },
   ],
+  entryComponents: [AddProductDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -44,9 +44,38 @@ module.exports = function () {
     }
   });
 
+  var snProductSchema = new Schema({
+    name: {type: String, required: true, unique: true},
+    imageUrl: {type: String},
+    price: {type: Number},
+    isWeight: {type: Boolean},
+    weight:{type: Number},
+    category: {type:Number}
+  });
+
 
   snUserSchema.set('toJSON', {getters: true, virtuals: true});
   snFacebookUserSchema.set('toJSON', {getters: true, virtuals: true});
+  snProductSchema.set('toJSON', {getters: true, virtuals: true});
+
+  snProductSchema.statics.insertProduct = function(product, cb) {   
+    var that = this;
+    var newProduct = new that({
+      name: product.name,
+      imageUrl: product.url,
+      price: product.price,
+      isWeight: product.isWeight,
+      weight: product.weight,
+      category: product.category
+    });
+  
+    newProduct.save(function(error, savedProduct) {
+      if (error) {
+        console.log(error);
+      }
+      return cb(error, savedProduct);
+    });
+  };
 
   snUserSchema.statics.upsertFbUser = function(accessToken, refreshToken, profile, cb) {
     var that = this;
@@ -112,6 +141,7 @@ module.exports = function () {
 
   mongoose.model('snUser', snUserSchema);
   mongoose.model('snFacebookUser', snFacebookUserSchema);
+  mongoose.model('snProducts', snProductSchema);
   
   return db;
 };

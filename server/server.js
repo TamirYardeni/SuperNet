@@ -15,6 +15,7 @@ mongoose();
 
 var snFacebookUser = require('mongoose').model('snFacebookUser');
 var snUser = require('mongoose').model('snUser');
+var snProducts = require('mongoose').model('snProducts');
 
 var passportConfig = require('./passport');
 
@@ -80,7 +81,6 @@ var authenticate = expressJwt({
   secret: 'my-secret',
   requestProperty: 'auth',
   getToken: function(req) {
-    debugger;
     if (req.headers['x-auth-token']) {
       return req.headers['x-auth-token'];
     }
@@ -94,7 +94,6 @@ var getCurrentUser = function(req, res, next) {
     if (err) {
       next(err);
     } else {
-      debugger;
       snUser.findOne({email:user.email}, function(err, userData) {
         if (err) {
           next(err);
@@ -109,7 +108,6 @@ var getCurrentUser = function(req, res, next) {
 };
 
 var getOne = function (req, res) {
-  console.log("1111");
   var user = req.user.toObject();
   delete user['facebookProvider'];
   delete user['__v'];
@@ -120,9 +118,24 @@ var getOne = function (req, res) {
 var getUsers = function (req, res) {
   snUser.find({}, function(err, users) {
     if (err) {
-      next(err);
+      console.error(err);
+      res.statusCode = 500;
+      return res.json({ errors: ['Could not get users'] });
     } else {
       res.json(users);
+    }
+  });
+};
+
+var addProduct = function(req, res) {
+  var product = req.body.product;
+  snProducts.insertProduct(product, function(err, savedProduct) {
+    if (err) {
+      console.error(err);
+      res.statusCode = 500;
+      return res.json({ errors: ['Could not add products'] });
+    } else {
+      res.json(savedProduct);
     }
   });
 };
@@ -132,6 +145,9 @@ router.route('/auth/me')
 
 router.route('/users')
   .post(authenticate, getUsers);
+
+router.route('/products')
+  .post(authenticate, addProduct);
 
 
 app.use('/api/v1', router);

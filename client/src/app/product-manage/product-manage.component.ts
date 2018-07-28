@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import {MatTableDataSource} from '@angular/material';
-
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {ProductService} from '../Services/product/product.service';
+import {AddProductDialogComponent} from '../Dialogs/AddProduct/add-product-dialog/add-product-dialog.component';
 
 @Component({
   selector: 'app-product-manage',
@@ -19,22 +20,33 @@ export class ProductManageComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
 
-  constructor(private productService:ProductService) {  }
+  constructor(private productService:ProductService,
+  private dialog:MatDialog) {  }
 
   ngOnInit() {
+    
+  }
+
+  openAddProductModal() {
+    let dialogRef = this.dialog.open(AddProductDialogComponent, {
+      width: '600px',
+      data: 'This text is passed into the dialog!'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog closed: ${result}`);
+      //this.dialogResult = result;
+    });
   }
 
   getProducts() {
     this.productService.getProducts();
   }
 
-  addProduct() {
-    this.productService.addProduct();
-  }
-
   deleteProduct(id) {
     this.productService.deleteProduct(id);
   }
+
+
 
 }
 
