@@ -10,8 +10,17 @@ export class ProductService {
   constructor(private userService:UserService,
     private http: AuthHttp) { }
 
-  getProducts() {
-
+  getProducts(filter) {
+    return new Promise((resolve, reject) => {
+        return this.http.get('http://localhost:3000/api/v1/products/'+JSON.stringify(filter))
+              .toPromise()
+              .then(response => {
+                debugger;
+                
+                resolve(response.json());
+              })
+              .catch((e) => { reject();}); 
+    });
   }
 
   addProduct(product) {

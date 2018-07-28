@@ -1,3 +1,21 @@
+
+
+<form [formGroup]="filterProductForm" novalidate class="filter-product-form" (ngSubmit)="onSubmit()">
+
+    <input matInput class="form-control" formControlName="name" placeholder="Name" value="">
+ 
+    <input matInput class="form-control" formControlName="price" placeholder="Price" value="">
+    
+    <mat-select  class="form-control" formControlName="category" placeholder="Categoty">
+      <mat-option *ngFor="let category of categories" [value]="category.value">
+        {{ category.viewValue }}
+      </mat-option>
+    </mat-select>
+    <pre>{{filterProductForm.value | json}}</pre>
+    <button mat-button (click)="submit" class="btn btn-primary">Search</button>
+  </form>
+
+
 <div class="example-container mat-elevation-z8">
   <div class="example-header">
     <mat-form-field>
@@ -8,15 +26,15 @@
   <mat-table #table [dataSource]="dataSource">
 
     <!-- Position Column -->
-    <ng-container matColumnDef="position">
+    <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
     </ng-container>
 
     <!-- Name Column -->
-    <ng-container matColumnDef="name">
+    <ng-container matColumnDef="price">
       <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.price}} </mat-cell>
     </ng-container>
 
     <!-- Weight Column -->
@@ -26,9 +44,9 @@
     </ng-container>
 
     <!-- Symbol Column -->
-    <ng-container matColumnDef="symbol">
+    <ng-container matColumnDef="image">
       <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.image}} </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

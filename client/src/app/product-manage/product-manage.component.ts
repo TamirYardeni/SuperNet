@@ -3,6 +3,7 @@ import {MatTableDataSource} from '@angular/material';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {ProductService} from '../Services/product/product.service';
 import {AddProductDialogComponent} from '../Dialogs/AddProduct/add-product-dialog/add-product-dialog.component';
+import {FormControl, Validators, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-product-manage',
@@ -11,8 +12,8 @@ import {AddProductDialogComponent} from '../Dialogs/AddProduct/add-product-dialo
 })
 export class ProductManageComponent implements OnInit {
 
-  displayedColumns = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  displayedColumns = ['name', 'price', 'weight', 'image'];
+  dataSource= new MatTableDataSource();
 
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
@@ -23,9 +24,27 @@ export class ProductManageComponent implements OnInit {
   constructor(private productService:ProductService,
   private dialog:MatDialog) {  }
 
+  filterProductForm: FormGroup;
+  isSubmitted: Boolean;
+  isSpinner: Boolean;
+
   ngOnInit() {
-    
+    this.isSubmitted = false;
+    this.isSpinner = false;
+
+    this.filterProductForm = new FormGroup({
+      name: new FormControl(),
+      price: new FormControl(),
+      category: new FormControl()
+  });
   }
+
+  categories = [
+    {value: '1', viewValue: 'Milk and Eggs'},
+    {value: '2', viewValue: 'Fruits and Vegetables'},
+    {value: '3', viewValue: 'Meat Chicken and Fish'},
+    {value: '4', viewValue: 'Bread and bakery products'}
+  ];
 
   openAddProductModal() {
     let dialogRef = this.dialog.open(AddProductDialogComponent, {
@@ -38,16 +57,21 @@ export class ProductManageComponent implements OnInit {
     });
   }
 
-  getProducts() {
-    this.productService.getProducts();
-  }
-
   deleteProduct(id) {
     this.productService.deleteProduct(id);
   }
 
-
-
+  onSubmit() {
+    if (this.filterProductForm.valid) {
+      this.isSubmitted = true;
+      this.isSpinner = true;
+      this.productService.getProducts(this.filterProductForm.value).then((products: Element[]) => {
+        console.log(products);
+        this.dataSource = new MatTableDataSource(products);
+        this.isSpinner = false;
+      });  
+    }
+  }
 }
 
 
@@ -57,26 +81,3 @@ export interface Element {
   weight: number;
   symbol: string;
 }
-
-const ELEMENT_DATA: Element[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-  {position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na'},
-  {position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg'},
-  {position: 13, name: 'Aluminum', weight: 26.9815, symbol: 'Al'},
-  {position: 14, name: 'Silicon', weight: 28.0855, symbol: 'Si'},
-  {position: 15, name: 'Phosphorus', weight: 30.9738, symbol: 'P'},
-  {position: 16, name: 'Sulfur', weight: 32.065, symbol: 'S'},
-  {position: 17, name: 'Chlorine', weight: 35.453, symbol: 'Cl'},
-  {position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar'},
-  {position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K'},
-  {position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca'},
-];

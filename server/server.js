@@ -140,6 +140,28 @@ var addProduct = function(req, res) {
   });
 };
 
+var getProducts = function(req, res) {
+  var params = JSON.parse(req.params.filter);
+  var filter = {};
+  if (params.name && params.name!="") {
+    filter.name = new RegExp('/*.'+params.name+'.*/');
+  }
+
+  if (params.price && params.price!="") {
+    filter.price = params.price;
+  }
+
+  if (params.category && params.category!="") {
+    filter.category = params.category;
+  }
+
+  debugger;
+  snProducts.find(filter, function(err, products) {
+    debugger;
+    res.json(products);
+  });
+}
+
 router.route('/auth/me')
   .get(authenticate, getCurrentUser, getOne);
 
@@ -149,6 +171,8 @@ router.route('/users')
 router.route('/products')
   .post(authenticate, addProduct);
 
+router.route('/products/:filter')
+  .get(authenticate, getProducts);
 
 app.use('/api/v1', router);
 

@@ -20,7 +20,7 @@ import { MatIconModule} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MatModule } from './mat.module'
 
-import { MatAutocompleteModule, MatInputModule, MatDialogModule } from '@angular/material';
+import { MatAutocompleteModule, MatInputModule, MatDialogModule, MatDialogRef } from '@angular/material';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { UserManageComponent } from './user-manage/user-manage.component';

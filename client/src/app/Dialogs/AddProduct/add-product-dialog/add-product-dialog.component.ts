@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {FormControl, Validators, FormGroup} from '@angular/forms';
 import {ProductService} from '../../../Services/product/product.service';
-
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-add-product-dialog',
@@ -10,16 +10,17 @@ import {ProductService} from '../../../Services/product/product.service';
 })
 export class AddProductDialogComponent implements OnInit {
   @ViewChild('addProductForm') form: ElementRef;
-  constructor(private productService:ProductService) { }
+  constructor(private productService:ProductService,
+    public dialogRef: MatDialogRef<AddProductDialogComponent>) { }
 
   myform: FormGroup;
+  isSubmitted: Boolean;
+  isSpinner: Boolean;
 
   ngOnInit() {
+    this.isSubmitted = false;
+    this.isSpinner = false;
     this.myform = new FormGroup({
-      /*name: new FormGroup({ 
-          firstName: new FormControl(), 
-          lastName: new FormControl(),
-      }),*/
       name: new FormControl(),
       price: new FormControl(),
       url: new FormControl(),
@@ -37,14 +38,18 @@ export class AddProductDialogComponent implements OnInit {
   ];
 
   onSubmit() {
-    debugger;
     if (this.myform.valid) {
+      this.isSubmitted = true;
+      this.isSpinner = true;
       this.productService.addProduct(this.myform.value).then((isAdded) => {
         if (isAdded) {
           console.log('product added');
         } else {
           console.log('product not added');
         }
+
+        this.isSpinner = false;
+        this.dialogRef.close();
       });  
     }
   }

@@ -1,4 +1,5 @@
-<form [formGroup]="myform" #addProductForm novalidate class="add-product-form" (ngSubmit)="onSubmit()">
+<mat-spinner *ngIf="isSpinner"></mat-spinner>
+<form [formGroup]="myform" *ngIf="!isSubmitted" #addProductForm novalidate class="add-product-form" (ngSubmit)="onSubmit()">
   <mat-form-field class="add-product-field-full-width">
     <input matInput class="form-control" formControlName="name" placeholder="Name" value="">
   </mat-form-field>
