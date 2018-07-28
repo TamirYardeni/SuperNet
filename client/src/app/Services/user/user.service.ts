@@ -18,6 +18,8 @@ export class UserService {
     });
   }
 
+  private currentUser : any = {};
+
   fbLogin() {
     return new Promise((resolve, reject) => {
       FB.login(result => {
@@ -47,18 +49,25 @@ export class UserService {
   }
 
   isLoggedIn() {
+    debugger;
     return new Promise((resolve, reject) => {
       this.getCurrentUser().then(user => resolve(true)).catch(() => reject(false));
     });
   }
 
   getCurrentUser() {
+    debugger;
     return new Promise((resolve, reject) => {
       return this.http.get('http://localhost:3000/api/v1/auth/me').toPromise().then(response => {
+        this.currentUser = response.json();
         resolve(response.json());
       }).catch(() => reject());
     });
   }  
+
+  getCurrentUserNotFromServer() {
+    return this.currentUser;
+  }
   
   getHealthCheck() {
     return new Promise((resolve, reject) => {
@@ -67,5 +76,18 @@ export class UserService {
         debugger;
         resolve(response);
       })});
+  }
+
+  getUsers() {
+    return new Promise((resolve, reject) => {
+      return this.http.post('http://localhost:3000/api/v1/users', {})
+                .toPromise()
+                .then(response => {
+                  debugger;
+                  
+                  resolve(response.json());
+                })
+                .catch((e) => {console.log(e); reject();});
+    });
   }
 }

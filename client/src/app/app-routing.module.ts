@@ -18,28 +18,33 @@ const appRoutes: Routes = [
     },
     {
         path: 'about',
-        component: DashboardComponent/*,
-        canActivate: [AuthGuard]*/
+        component: DashboardComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'users',
-        component: UserManageComponent
+        component: UserManageComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'statistics',
-        component: StatisticsComponent
+        component: StatisticsComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'products',
-        component: ProductManageComponent
+        component: ProductManageComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'profile',
-        component: MyProfileComponent
+        component: MyProfileComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'cart',
-        component: CartComponent
+        component: CartComponent,
+        canActivate: [AuthGuard]
     },
     { path: '', redirectTo: 'welcome' , pathMatch: 'full' }
 ];

@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
 
 import { UserService } from './Services/user/user.service';
+import { ProductService } from './Services/product/product.service';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthHttp, AuthConfig, AUTH_PROVIDERS } from 'angular2-jwt';
@@ -34,7 +35,6 @@ export function getAuthHttp(http: Http) {
     noJwtError: true,
     globalHeaders: [{'Accept': 'application/json'}],
     tokenGetter: (() => {
-      debugger;
       return localStorage.getItem('id_token_sn')}),
   }), http);
 }
@@ -71,6 +71,7 @@ export function getAuthHttp(http: Http) {
   ],
   providers: [
     UserService,
+    ProductService,
     AUTH_PROVIDERS,
     {
       provide: AuthHttp,

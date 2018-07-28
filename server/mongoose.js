@@ -50,7 +50,6 @@ module.exports = function () {
 
   snUserSchema.statics.upsertFbUser = function(accessToken, refreshToken, profile, cb) {
     var that = this;
-    debugger;
     var newUser = new that({
       fullName: profile.displayName,
       email: profile.emails[0].value,
@@ -58,13 +57,11 @@ module.exports = function () {
       carts:[],
       isAdmin: 0
     });
-    debugger
+  
     newUser.save(function(error, savedUser) {
       if (error) {
         console.log(error);
-        debugger
       }
-      debugger;
       return cb(error, savedUser);
 
     });
@@ -78,7 +75,6 @@ module.exports = function () {
     }, function(err, user) {
       // no user was found, lets create a new one
       if (!user) {
-        debugger;
         var newFacebookUser = new that({
           fullName: profile.displayName,
           email: profile.emails[0].value,
@@ -89,19 +85,27 @@ module.exports = function () {
         });
 
         newFacebookUser.save(function(error, savedUser) {
-          debugger;
           if (error) {
             console.log(error);
           } else {
             usr.upsertFbUser(accessToken, refreshToken, profile, function(err, user) {
-              debugger;
               return cb(err, user);
             });
           }
           return cb(error, savedUser);
         });
       } else {
-        return cb(err, user);
+        user.set({ 'facebookProvider.token': accessToken});
+        user.save(function (err, updatedUser) {
+          debugger;
+          if (err) return handleError(err);
+          return cb(err, updatedUser);
+        });
+        //user._doc.facebookProvider.token = accessToken;
+        //user.save()
+        /*usr.find({email:user._doc.email}, function(err, userData) {
+          return cb(err, userData);
+        });*/
       }
     });
   };

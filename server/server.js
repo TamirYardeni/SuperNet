@@ -39,7 +39,6 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 router.route('/health-check').get(function(req, res) {
-  debugger;
   res.status(200);
   res.send('Hello World');
 });
@@ -81,6 +80,7 @@ var authenticate = expressJwt({
   secret: 'my-secret',
   requestProperty: 'auth',
   getToken: function(req) {
+    debugger;
     if (req.headers['x-auth-token']) {
       return req.headers['x-auth-token'];
     }
@@ -89,10 +89,12 @@ var authenticate = expressJwt({
 });
 
 var getCurrentUser = function(req, res, next) {
+  debugger;
   snFacebookUser.findById(req.auth.id, function(err, user) {
     if (err) {
       next(err);
     } else {
+      debugger;
       snUser.findOne({email:user.email}, function(err, userData) {
         if (err) {
           next(err);
@@ -109,15 +111,27 @@ var getCurrentUser = function(req, res, next) {
 var getOne = function (req, res) {
   console.log("1111");
   var user = req.user.toObject();
-
   delete user['facebookProvider'];
   delete user['__v'];
 
   res.json(user);
 };
 
+var getUsers = function (req, res) {
+  snUser.find({}, function(err, users) {
+    if (err) {
+      next(err);
+    } else {
+      res.json(users);
+    }
+  });
+};
+
 router.route('/auth/me')
   .get(authenticate, getCurrentUser, getOne);
+
+router.route('/users')
+  .post(authenticate, getUsers);
 
 
 app.use('/api/v1', router);
