@@ -116,7 +116,19 @@ var getOne = function (req, res) {
 };
 
 var getUsers = function (req, res) {
-  snUser.find({}, function(err, users) {
+  var params = JSON.parse(req.params.filter);
+  var filter = {};
+  if (params.id && params.id!="") {
+    filter._id = new RegExp(params.id);
+  }
+
+  if (params.mail && params.mail!="") {
+    filter.email = new RegExp(params.mail);
+  }
+
+  debugger;
+  snUser.find(filter,'id email isAdmin', function(err, users) {
+    debugger;
     if (err) {
       console.error(err);
       res.statusCode = 500;
@@ -144,7 +156,7 @@ var getProducts = function(req, res) {
   var params = JSON.parse(req.params.filter);
   var filter = {};
   if (params.name && params.name!="") {
-    filter.name = new RegExp('/*.'+params.name+'.*/');
+    filter.name = new RegExp(params.name);
   }
 
   if (params.price && params.price!="") {
@@ -165,8 +177,8 @@ var getProducts = function(req, res) {
 router.route('/auth/me')
   .get(authenticate, getCurrentUser, getOne);
 
-router.route('/users')
-  .post(authenticate, getUsers);
+router.route('/users/:filter')
+  .get(authenticate, getUsers);
 
 router.route('/products')
   .post(authenticate, addProduct);

@@ -78,16 +78,16 @@ export class UserService {
       })});
   }
 
-  getUsers() {
+  getUsers(filter) {
     return new Promise((resolve, reject) => {
-      return this.http.post('http://localhost:3000/api/v1/users', {})
-                .toPromise()
-                .then(response => {
-                  debugger;
-                  
-                  resolve(response.json());
-                })
-                .catch((e) => {console.log(e); reject();});
+        return this.http.get('http://localhost:3000/api/v1/users/'+JSON.stringify(filter))
+              .toPromise()
+              .then(response => {
+                debugger;
+                
+                resolve(response.json());
+              })
+              .catch((e) => { reject();}); 
     });
   }
 }

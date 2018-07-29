@@ -1,4 +1,13 @@
-<button mat-button color="white" (click)="getUsers()">Search</button>
+<form [formGroup]="filterUserForm" novalidate class="filter-user-form" (ngSubmit)="onSubmit()">
+
+    <input matInput class="form-control" formControlName="id" placeholder="Id" value="">
+ 
+    <input matInput class="form-control" formControlName="email" placeholder="Email" value="">
+    
+    <pre>{{filterProductForm.value | json}}</pre>
+    <button mat-button (click)="submit" class="btn btn-primary">Search</button>
+  </form>
+
 <div class="example-container mat-elevation-z8">
   <div class="example-header">
     <mat-form-field>
