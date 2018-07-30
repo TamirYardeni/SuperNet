@@ -23,7 +23,8 @@ import {
   MatToolbarRow,
   MatTableModule,
   MatCheckboxModule,
-  MatSelectModule
+  MatSelectModule,
+  MatButtonToggleModule
 } from '@angular/material';
 
 const mats = [
@@ -40,7 +41,8 @@ const mats = [
   MatDividerModule,
   MatTableModule,
   MatCheckboxModule,
-  MatSelectModule
+  MatSelectModule,
+  MatButtonToggleModule
 ]
 
 @NgModule({

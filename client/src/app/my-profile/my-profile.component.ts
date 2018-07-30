@@ -14,7 +14,6 @@ export class MyProfileComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.userService.getCurrentUserNotFromServer();
-    console.log(this.userService.getCurrentUserNotFromServer());
   }
 
 }

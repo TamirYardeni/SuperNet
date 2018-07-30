@@ -3,6 +3,7 @@ import {MatTableDataSource} from '@angular/material';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {ProductService} from '../Services/product/product.service';
 import {AddProductDialogComponent} from '../Dialogs/AddProduct/add-product-dialog/add-product-dialog.component';
+import {AddToCartDialogComponent} from '../Dialogs/AddToCart/add-to-cart-dialog/add-to-cart-dialog.component';
 import {FormControl, Validators, FormGroup} from '@angular/forms';
 
 @Component({
@@ -12,7 +13,7 @@ import {FormControl, Validators, FormGroup} from '@angular/forms';
 })
 export class ProductManageComponent implements OnInit {
 
-  displayedColumns = ['name', 'price', 'weight', 'image'];
+  displayedColumns = ['name', 'price', 'weight', 'image', 'addToCart'];
   dataSource= new MatTableDataSource();
 
   applyFilter(filterValue: string) {
@@ -57,6 +58,17 @@ export class ProductManageComponent implements OnInit {
     });
   }
 
+  openAddToCartModal(product) {
+    let dialogRef = this.dialog.open(AddToCartDialogComponent, {
+      width: '600px',
+      data: product
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog closed: ${result}`);
+      //this.dialogResult = result;
+    });
+  }
+
   deleteProduct(id) {
     this.productService.deleteProduct(id);
   }
@@ -79,5 +91,5 @@ export interface Element {
   name: string;
   position: number;
   weight: number;
-  symbol: string;
+  imageUrl: string;
 }

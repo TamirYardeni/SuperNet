@@ -10,6 +10,7 @@ import { HttpModule, Http } from '@angular/http';
 
 import { UserService } from './Services/user/user.service';
 import { ProductService } from './Services/product/product.service';
+import { CartService } from './Services/cart/cart.service';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthHttp, AuthConfig, AUTH_PROVIDERS } from 'angular2-jwt';
@@ -28,6 +29,7 @@ import { ProductManageComponent } from './product-manage/product-manage.componen
 import { StatisticsComponent } from './statistics/statistics.component';
 import { CartComponent } from './cart/cart.component';
 import { AddProductDialogComponent } from './Dialogs/AddProduct/add-product-dialog/add-product-dialog.component';
+import { AddToCartDialogComponent } from './Dialogs/AddToCart/add-to-cart-dialog/add-to-cart-dialog.component';
 
 export function getAuthHttp(http: Http) {
   return new AuthHttp(new AuthConfig({
@@ -50,7 +52,8 @@ export function getAuthHttp(http: Http) {
     ProductManageComponent,
     StatisticsComponent,
     CartComponent,
-    AddProductDialogComponent
+    AddProductDialogComponent,
+    AddToCartDialogComponent
   ],
   exports: [
     ReactiveFormsModule
@@ -74,6 +77,7 @@ export function getAuthHttp(http: Http) {
   providers: [
     UserService,
     ProductService,
+    CartService,
     AUTH_PROVIDERS,
     {
       provide: AuthHttp,
@@ -81,7 +85,7 @@ export function getAuthHttp(http: Http) {
       deps: [Http]
     },
   ],
-  entryComponents: [AddProductDialogComponent],
+  entryComponents: [AddProductDialogComponent, AddToCartDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

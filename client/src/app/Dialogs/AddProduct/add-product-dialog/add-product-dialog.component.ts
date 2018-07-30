@@ -27,7 +27,7 @@ export class AddProductDialogComponent implements OnInit {
       isWeight: new FormControl(),
       weight: new FormControl(),
       category: new FormControl()
-  });
+    });
   }
 
   categories = [

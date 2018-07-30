@@ -1,4 +1,4 @@
-
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <form [formGroup]="filterProductForm" novalidate class="filter-product-form" (ngSubmit)="onSubmit()">
 
@@ -25,15 +25,15 @@
 
   <mat-table #table [dataSource]="dataSource">
 
-    <!-- Position Column -->
+    <!-- Name Column -->
     <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
     </ng-container>
 
-    <!-- Name Column -->
+    <!-- Price Column -->
     <ng-container matColumnDef="price">
-      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.price}} </mat-cell>
     </ng-container>
 
@@ -43,11 +43,23 @@
       <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
     </ng-container>
 
-    <!-- Symbol Column -->
+    <!-- Image Column -->
     <ng-container matColumnDef="image">
-      <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.image}} </mat-cell>
+      <mat-header-cell *matHeaderCellDef> Image </mat-header-cell>
+      <mat-cell *matCellDef="let element"> 
+          <img class="productImage" src={{element.imageUrl}}>
+      </mat-cell>
     </ng-container>
+
+    <!-- AddToCart Column -->
+    <ng-container matColumnDef="addToCart">
+        <mat-header-cell *matHeaderCellDef> Add to cart </mat-header-cell>
+        <mat-cell *matCellDef="let element"> 
+            <button class="addToCartBtn" (click)="openAddToCartModal(element)" mat-button>
+                <i class="material-icons cartBtnIcon">add_shopping_cart</i>
+            </button>
+        </mat-cell>
+      </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
