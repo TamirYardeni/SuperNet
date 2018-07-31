@@ -16,6 +16,8 @@ export class UserManageComponent implements OnInit {
   filterUserForm: FormGroup;
   isSubmitted: Boolean;
   isSpinner: Boolean;
+  userId:String;
+  userChangedStatuses;
 
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
@@ -24,7 +26,8 @@ export class UserManageComponent implements OnInit {
   }
 
   constructor(private userService:UserService) { 
-
+    this.userId = this.userService.getCurrentUserNotFromServer()._id;
+    this.userChangedStatuses=[];
   }
 
   ngOnInit() {
@@ -53,6 +56,25 @@ export class UserManageComponent implements OnInit {
         this.isSpinner = false;
       });  
     }
+  }
+
+  changeAdminStatus(userId, isChecked) {
+    debugger;
+    var isChanged = false;
+    this.userChangedStatuses.forEach(function(node) {
+      if (node.id == userId) {
+        node.state = isChecked;
+        isChanged = true;
+      }
+    });
+
+    if (!isChanged) {
+      this.userChangedStatuses.push({id:userId, state:isChecked});
+    }
+  }
+
+  saveAdminChange() {
+    this.userService.updateAdminStatuses(this.userChangedStatuses);
   }
 
 }

@@ -149,6 +149,16 @@ var addProduct = function(req, res) {
   });
 };
 
+var updateUserStatus = function(req, res) {
+  debugger;
+  var changedStatuses = req.body;
+  changedStatuses.forEach(function(item) {
+    snUser.findOneAndUpdate({_id:item.id}, { "$set": { "isAdmin": item.state}}).exec(function(err, changeUser){
+      console.log(changeUser);
+    });
+  });
+};
+
 var deleteProduct = function(req, res) {
   snProducts.deleteOne({'_id': req.params.id}, function(err, savedProduct) {
     debugger;
@@ -187,6 +197,9 @@ router.route('/auth/me')
 
 router.route('/users/:filter')
   .get(authenticate, getUsers);
+
+  router.route('/users/status')
+  .post(authenticate, updateUserStatus);  
 
 router.route('/products')
   .post(authenticate, addProduct);

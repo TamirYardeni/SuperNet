@@ -32,7 +32,10 @@
     <!-- IsAdmin Column -->
     <ng-container matColumnDef="isAdmin">
       <mat-header-cell *matHeaderCellDef> admin </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.isAdmin}} </mat-cell>
+      <mat-cell class="checkBoxAdmin" *matCellDef="let element"> 
+        
+        <mat-checkbox [checked]="element.isAdmin" [disabled]="element.id==this.userId" (change)="changeAdminStatus(element.id,$event.checked)"></mat-checkbox>
+      </mat-cell>
     </ng-container>
 
 
@@ -40,3 +43,5 @@
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
 </div>
+
+<button mat-raised-button (click)="saveAdminChange()">Save</button>

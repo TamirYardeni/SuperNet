@@ -90,4 +90,19 @@ export class UserService {
               .catch((e) => { reject();}); 
     });
   }
+
+  updateAdminStatuses(adminStatuses) {
+    debugger;
+
+    return new Promise((resolve, reject) => {
+      return this.http.post('http://localhost:3000/api/v1/users/status', adminStatuses)
+            .toPromise()
+            .then(response => {
+              debugger;
+              
+              resolve(response.json());
+            })
+            .catch((e) => { reject();}); 
+    });
+  }
 }
