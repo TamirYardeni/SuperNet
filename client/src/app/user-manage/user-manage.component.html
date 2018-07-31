@@ -4,7 +4,7 @@
  
     <input matInput class="form-control" formControlName="email" placeholder="Email" value="">
     
-    <pre>{{filterProductForm.value | json}}</pre>
+    <pre>{{filterUserForm.value | json}}</pre>
     <button mat-button (click)="submit" class="btn btn-primary">Search</button>
   </form>
 
@@ -17,20 +17,20 @@
 
   <mat-table #table [dataSource]="dataSource">
 
-    <!-- Position Column -->
+    <!-- Id Column -->
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef> id </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
     </ng-container>
 
-    <!-- Name Column -->
+    <!-- Email Column -->
     <ng-container matColumnDef="email">
       <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
     </ng-container>
 
-    <!-- Weight Column -->
-    <ng-container matColumnDef="admin">
+    <!-- IsAdmin Column -->
+    <ng-container matColumnDef="isAdmin">
       <mat-header-cell *matHeaderCellDef> admin </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.isAdmin}} </mat-cell>
     </ng-container>

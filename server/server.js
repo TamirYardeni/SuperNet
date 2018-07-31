@@ -89,7 +89,6 @@ var authenticate = expressJwt({
 });
 
 var getCurrentUser = function(req, res, next) {
-  debugger;
   snFacebookUser.findById(req.auth.id, function(err, user) {
     if (err) {
       next(err);
@@ -126,9 +125,7 @@ var getUsers = function (req, res) {
     filter.email = new RegExp(params.mail);
   }
 
-  debugger;
   snUser.find(filter,'id email isAdmin', function(err, users) {
-    debugger;
     if (err) {
       console.error(err);
       res.statusCode = 500;
@@ -142,6 +139,19 @@ var getUsers = function (req, res) {
 var addProduct = function(req, res) {
   var product = req.body.product;
   snProducts.insertProduct(product, function(err, savedProduct) {
+    if (err) {
+      console.error(err);
+      res.statusCode = 500;
+      return res.json({ errors: ['Could not add products'] });
+    } else {
+      res.json(savedProduct);
+    }
+  });
+};
+
+var deleteProduct = function(req, res) {
+  snProducts.deleteOne({'_id': req.params.id}, function(err, savedProduct) {
+    debugger;
     if (err) {
       console.error(err);
       res.statusCode = 500;
@@ -167,9 +177,7 @@ var getProducts = function(req, res) {
     filter.category = params.category;
   }
 
-  debugger;
   snProducts.find(filter, function(err, products) {
-    debugger;
     res.json(products);
   });
 }
@@ -182,6 +190,9 @@ router.route('/users/:filter')
 
 router.route('/products')
   .post(authenticate, addProduct);
+
+router.route('/products/:id')
+  .delete(authenticate, deleteProduct);
 
 router.route('/products/:filter')
   .get(authenticate, getProducts);

@@ -69,6 +69,7 @@ module.exports = function () {
       category: product.category
     });
   
+    debugger;
     newProduct.save(function(error, savedProduct) {
       if (error) {
         console.log(error);
@@ -126,7 +127,6 @@ module.exports = function () {
       } else {
         user.set({ 'facebookProvider.token': accessToken});
         user.save(function (err, updatedUser) {
-          debugger;
           if (err) return handleError(err);
           return cb(err, updatedUser);
         });

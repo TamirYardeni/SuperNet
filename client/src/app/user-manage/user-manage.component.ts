@@ -44,10 +44,10 @@ export class UserManageComponent implements OnInit {
       this.isSpinner = true;
       this.userService.getUsers(this.filterUserForm.value).then((users: Element[]) => {
 
-        users.forEach(user => {
+        /*users.forEach(user => {
           delete user['_id'];
-        });
-        
+        });*/
+        debugger;
         console.log(users);
         this.dataSource = new MatTableDataSource(users);
         this.isSpinner = false;

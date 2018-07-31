@@ -41,10 +41,20 @@ export class ProductService {
   }
 
   deleteProduct(id) {
-    debugger;
-    if (this.userService.getCurrentUserNotFromServer().isAdmin) {
-      console.log("delete");
-    }
+    return new Promise((resolve, reject) => {
+      if (this.userService.getCurrentUserNotFromServer().isAdmin) {
+        debugger;
+        return this.http.delete('http://localhost:3000/api/v1/products/'+id)
+                .toPromise()
+                .then(response => {
+                  debugger;
+                  
+                  resolve(true);
+                })
+                .catch((e) => { resolve(false);});
+      } else {
+        resolve(false);
+      }  
+    });
   }
-
 }

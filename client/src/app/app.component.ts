@@ -13,12 +13,14 @@ export class AppComponent implements OnInit{
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
+    debugger;
     this.userService.getCurrentUser().then(profile => this.currentUser = profile)
         .catch(() => this.currentUser = {});
 
   }
 
   menuButtonClicked(routName) {
+    debugger;
     this.router.navigate([routName]);
   }
 

@@ -1,0 +1,11 @@
+<mat-spinner *ngIf="isSpinner"></mat-spinner>
+<header *ngIf="!isSpinner">
+  <h1>Look out!</h1>
+</header>
+<section *ngIf="!isSpinner">
+  Are you sure you want to delete the product {{data.name}}
+</section>
+<footer *ngIf="!isSpinner">
+  <button mat-button (click)="deleteProduct()">Yes</button>
+  <button mat-button (click)="deleteProductCancel()">Cancel</button>
+</footer>
