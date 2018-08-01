@@ -8,8 +8,7 @@ module.exports = function () {
   var db = mongoose.connect('mongodb://admin:1234@ds239117.mlab.com:39117/colman');
 
   var snUserSchema = new Schema({
-    firstName: {type: String},
-    lastName: {type: String},
+    fullName: {type: String},
     email: {
       type: String, required: true,
       trim: true, unique: true,
@@ -28,8 +27,7 @@ module.exports = function () {
   });
 
   var snFacebookUserSchema = new Schema({
-    firstName: {type: String},
-    lastName: {type: String},
+    fullName: {type: String},
     email: {
       type: String, required: true,
       trim: true, unique: true,
@@ -69,7 +67,6 @@ module.exports = function () {
       category: product.category
     });
   
-    debugger;
     newProduct.save(function(error, savedProduct) {
       if (error) {
         console.log(error);
@@ -98,6 +95,7 @@ module.exports = function () {
   };
 
   snUserSchema.statics.addCart = function(cart, userId, cb) {
+    snUserSchema.
     console.log(cart);
     console.log(userId);
   };

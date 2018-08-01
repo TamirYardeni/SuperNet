@@ -10,7 +10,7 @@ import {UserService} from '../Services/user/user.service';
 })
 export class UserManageComponent implements OnInit {
 
-  displayedColumns = ['id', 'email', 'isAdmin'];
+  displayedColumns = ['id', 'name', 'email', 'isAdmin'];
   dataSource= new MatTableDataSource();
 
   filterUserForm: FormGroup;
@@ -18,6 +18,11 @@ export class UserManageComponent implements OnInit {
   isSpinner: Boolean;
   userId:String;
   userChangedStatuses;
+  userTypes = [
+    {value: null, viewValue: 'None'},
+    {value: true, viewValue: 'Admin'},
+    {value: false, viewValue: 'Regular'}
+  ];
 
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
@@ -35,8 +40,9 @@ export class UserManageComponent implements OnInit {
     this.isSpinner = false;
 
     this.filterUserForm = new FormGroup({
-      id: new FormControl(),
-      email: new FormControl()
+      isAdmin: new FormControl(),
+      email: new FormControl(),
+      name: new FormControl()
     });
   }
 
@@ -83,4 +89,5 @@ export interface Element {
   id: String;
   email: string;
   isAdmin: boolean;
+  fullName: String;
 }

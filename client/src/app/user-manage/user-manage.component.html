@@ -1,9 +1,15 @@
 <form [formGroup]="filterUserForm" novalidate class="filter-user-form" (ngSubmit)="onSubmit()">
 
-    <input matInput class="form-control" formControlName="id" placeholder="Id" value="">
+
+  <mat-select class="form-control" formControlName="isAdmin" placeholder="User type">
+    <mat-option *ngFor="let type of userTypes" [value]="type.value">
+      {{ type.viewValue }}
+    </mat-option>
+  </mat-select>
  
-    <input matInput class="form-control" formControlName="email" placeholder="Email" value="">
+  <input matInput class="form-control" formControlName="email" placeholder="Email" value="">
     
+  <input matInput class="form-control" formControlName="name" placeholder="Name" value="">
     <pre>{{filterUserForm.value | json}}</pre>
     <button mat-button (click)="submit" class="btn btn-primary">Search</button>
   </form>
@@ -21,6 +27,12 @@
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef> id </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+    </ng-container>
+
+    <!-- Email Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.fullName}} </mat-cell>
     </ng-container>
 
     <!-- Email Column -->

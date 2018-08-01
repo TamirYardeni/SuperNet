@@ -115,17 +115,23 @@ var getOne = function (req, res) {
 };
 
 var getUsers = function (req, res) {
+  console.log(req.params.filter);
+
   var params = JSON.parse(req.params.filter);
   var filter = {};
-  if (params.id && params.id!="") {
-    filter._id = new RegExp(params.id);
+  if (params.isAdmin!=null) {
+    filter.isAdmin = params.isAdmin;
   }
 
-  if (params.mail && params.mail!="") {
-    filter.email = new RegExp(params.mail);
+  if (params.name && params.name!="") {
+    filter.fullName = new RegExp(params.name);
   }
 
-  snUser.find(filter,'id email isAdmin', function(err, users) {
+  if (params.email && params.email!="") {
+    filter.email = new RegExp(params.email);
+  }
+
+  snUser.find(filter,'id fullName email isAdmin', function(err, users) {
     if (err) {
       console.error(err);
       res.statusCode = 500;
@@ -150,7 +156,6 @@ var addProduct = function(req, res) {
 };
 
 var updateUserStatus = function(req, res) {
-  debugger;
   var changedStatuses = req.body;
   changedStatuses.forEach(function(item) {
     snUser.findOneAndUpdate({_id:item.id}, { "$set": { "isAdmin": item.state}}).exec(function(err, changeUser){
@@ -161,7 +166,6 @@ var updateUserStatus = function(req, res) {
 
 var deleteProduct = function(req, res) {
   snProducts.deleteOne({'_id': req.params.id}, function(err, savedProduct) {
-    debugger;
     if (err) {
       console.error(err);
       res.statusCode = 500;
@@ -173,31 +177,10 @@ var deleteProduct = function(req, res) {
 };
 
 var addCartToUser = function(req, res) {
-  debugger;
-
   snUser.findOneAndUpdate({_id:req.body.usr}, 
     { $push: {"carts":{"date": new Date(), "detailes":req.body.cart}}}).exec(function(err, changeUser){
     console.log(changeUser);
-    debugger;
   });
-
-  /*snUser.findById({_id:req.body.usr}, function(err, user) {
-    debugger;
-    user._doc.carts = user._doc.carts.concat({date: new Date(), detailes:req.body.cart});
-    //user._doc.carts.push();
-    debugger;
-    user.save(function(err, savedUser) {
-      res.json(savedUser);
-    });
-  });*/
-
-
-
-  /*snUser.updateOne({_id:req.body.usr},{ $push: { cart: req.body.cart }}, function (err, tank) {
-    debugger;
-    if (err) return handleError(err);
-    res.send(tank);
-  });*/
 };
 
 var getProducts = function(req, res) {
