@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {AuthHttp} from 'angular2-jwt';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
+import { BehaviorSubject } from 'rxjs';
 
 declare const FB:any;
 
@@ -19,6 +20,17 @@ export class UserService {
   }
 
   private currentUser : any = {};
+
+  private isAdminBS = new BehaviorSubject<any>(null); 
+  isAdmin = this.isAdminBS.asObservable();
+
+  private isLoggedInBS = new BehaviorSubject<any>(null); 
+  isLoggedInObs = this.isLoggedInBS.asObservable();
+
+  initCurrentUser() {
+    this.isAdminBS.next(false);
+    this.isLoggedInBS.next(false);
+  }
 
   fbLogin() {
     return new Promise((resolve, reject) => {
@@ -60,8 +72,10 @@ export class UserService {
     return new Promise((resolve, reject) => {
       return this.http.get('http://localhost:3000/api/v1/auth/me').toPromise().then(response => {
         this.currentUser = response.json();
+        this.isAdminBS.next(this.currentUser.isAdmin);
+        this.isLoggedInBS.next(true);
         resolve(response.json());
-      }).catch(() => reject());
+      }).catch(() => {this.isAdminBS.next(false); this.isLoggedInBS.next(false); reject();});
     });
   }  
 

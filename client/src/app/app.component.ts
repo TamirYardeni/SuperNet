@@ -8,14 +8,31 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-  public currentUser : any = {};
+  public isAdmin :Boolean;
+  public isLoggedIn :Boolean;
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router) { 
+    this.userService.initCurrentUser();
+  }
 
   ngOnInit() {
     debugger;
-    this.userService.getCurrentUser().then(profile => this.currentUser = profile)
-        .catch(() => this.currentUser = {});
+    /*this.userService.getCurrentUser().then(profile => this.currentUser = profile)
+        .catch(() => this.currentUser = {});*/
+
+    this.userService.isAdmin.subscribe(res => {
+      debugger; 
+      if(res!=null){
+        this.isAdmin = res;
+      }
+    });
+
+    this.userService.isLoggedInObs.subscribe(res => {
+      debugger; 
+      if(res!=null){
+        this.isLoggedIn = res;
+      }
+    });
 
   }
 
