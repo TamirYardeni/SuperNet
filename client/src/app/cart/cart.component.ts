@@ -16,4 +16,7 @@ export class CartComponent implements OnInit {
     this.cartDetails = this.cartService.getCartDetails();
   }
 
+  saveCart() {
+    this.cartService.saveCart();
+  }
 }

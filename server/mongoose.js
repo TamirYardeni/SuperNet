@@ -97,6 +97,11 @@ module.exports = function () {
     });
   };
 
+  snUserSchema.statics.addCart = function(cart, userId, cb) {
+    console.log(cart);
+    console.log(userId);
+  };
+
   snFacebookUserSchema.statics.upsertFbUser = function(accessToken, refreshToken, profile, cb) {
     var usr = mongoose.model('snUsers', snUserSchema);
     var that = this;

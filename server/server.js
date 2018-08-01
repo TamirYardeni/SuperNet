@@ -172,6 +172,34 @@ var deleteProduct = function(req, res) {
   });
 };
 
+var addCartToUser = function(req, res) {
+  debugger;
+
+  snUser.findOneAndUpdate({_id:req.body.usr}, 
+    { $push: {"carts":{"date": new Date(), "detailes":req.body.cart}}}).exec(function(err, changeUser){
+    console.log(changeUser);
+    debugger;
+  });
+
+  /*snUser.findById({_id:req.body.usr}, function(err, user) {
+    debugger;
+    user._doc.carts = user._doc.carts.concat({date: new Date(), detailes:req.body.cart});
+    //user._doc.carts.push();
+    debugger;
+    user.save(function(err, savedUser) {
+      res.json(savedUser);
+    });
+  });*/
+
+
+
+  /*snUser.updateOne({_id:req.body.usr},{ $push: { cart: req.body.cart }}, function (err, tank) {
+    debugger;
+    if (err) return handleError(err);
+    res.send(tank);
+  });*/
+};
+
 var getProducts = function(req, res) {
   var params = JSON.parse(req.params.filter);
   var filter = {};
@@ -198,8 +226,11 @@ router.route('/auth/me')
 router.route('/users/:filter')
   .get(authenticate, getUsers);
 
-  router.route('/users/status')
+router.route('/users/status')
   .post(authenticate, updateUserStatus);  
+
+router.route('/user/cart')
+  .post(authenticate, addCartToUser); 
 
 router.route('/products')
   .post(authenticate, addProduct);
