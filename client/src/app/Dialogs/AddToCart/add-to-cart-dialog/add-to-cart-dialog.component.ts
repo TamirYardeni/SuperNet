@@ -39,7 +39,6 @@ export class AddToCartDialogComponent implements OnInit {
   }
 
   closeModal() {
-    debugger;
     this.dialogRef.close();
   }
 

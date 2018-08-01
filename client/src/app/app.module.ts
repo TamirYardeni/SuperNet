@@ -11,6 +11,7 @@ import { HttpModule, Http } from '@angular/http';
 import { UserService } from './Services/user/user.service';
 import { ProductService } from './Services/product/product.service';
 import { CartService } from './Services/cart/cart.service';
+import { CategoryService } from './Services/category/category.service';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthHttp, AuthConfig, AUTH_PROVIDERS } from 'angular2-jwt';
@@ -31,6 +32,7 @@ import { CartComponent } from './cart/cart.component';
 import { AddProductDialogComponent } from './Dialogs/AddProduct/add-product-dialog/add-product-dialog.component';
 import { AddToCartDialogComponent } from './Dialogs/AddToCart/add-to-cart-dialog/add-to-cart-dialog.component';
 import { DeleteProductDialogComponent } from './Dialogs/DeleteProduct/delete-product-dialog/delete-product-dialog.component';
+import { CatergoriesDialogComponent } from './Dialogs/Category/catergories-dialog/catergories-dialog.component';
 
 export function getAuthHttp(http: Http) {
   return new AuthHttp(new AuthConfig({
@@ -55,7 +57,8 @@ export function getAuthHttp(http: Http) {
     CartComponent,
     AddProductDialogComponent,
     AddToCartDialogComponent,
-    DeleteProductDialogComponent
+    DeleteProductDialogComponent,
+    CatergoriesDialogComponent
   ],
   exports: [
     ReactiveFormsModule
@@ -80,6 +83,7 @@ export function getAuthHttp(http: Http) {
     UserService,
     ProductService,
     CartService,
+    CategoryService,
     AUTH_PROVIDERS,
     {
       provide: AuthHttp,
@@ -87,7 +91,8 @@ export function getAuthHttp(http: Http) {
       deps: [Http]
     },
   ],
-  entryComponents: [AddProductDialogComponent, AddToCartDialogComponent, DeleteProductDialogComponent],
+  entryComponents: [AddProductDialogComponent, AddToCartDialogComponent, 
+                    DeleteProductDialogComponent,CatergoriesDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

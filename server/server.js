@@ -16,6 +16,7 @@ mongoose();
 var snFacebookUser = require('mongoose').model('snFacebookUser');
 var snUser = require('mongoose').model('snUser');
 var snProducts = require('mongoose').model('snProducts');
+var snCategories = require('mongoose').model('snCategories');
 
 var passportConfig = require('./passport');
 
@@ -203,6 +204,37 @@ var getProducts = function(req, res) {
   });
 }
 
+var getCategories = function(req, res) {
+  snCategories.find({}, function(err, categories) {
+    res.json(categories);
+  });
+}
+
+var addCategory = function(req, res) {
+  debugger;
+  var cat = new snCategories({ name: req.body.catName });
+  cat.save(function (err, savedCategory) {
+    debugger;
+    if (err) {
+      res.statusCode = 500;
+      return res.json({ errors: ['Could not add category'] });
+    }
+    res.json(savedCategory);
+    // saved!
+  });
+}
+
+var deleteCategory = function(req, res) {
+  console.log(req.params);
+  debugger;
+  snCategories.deleteOne({ _id: req.params.id },function (err, deleted) {
+    debugger;
+    if (err) return handleError(err);
+    res.json(deleted);
+    // deleted!
+  });
+}
+
 router.route('/auth/me')
   .get(authenticate, getCurrentUser, getOne);
 
@@ -223,6 +255,15 @@ router.route('/products/:id')
 
 router.route('/products/:filter')
   .get(authenticate, getProducts);
+
+router.route('/categories')
+  .get(authenticate, getCategories);
+
+router.route('/categories')
+  .post(authenticate, addCategory);
+
+router.route('/categories/:id')
+  .delete(authenticate, deleteCategory);
 
 app.use('/api/v1', router);
 

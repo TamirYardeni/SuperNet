@@ -7,6 +7,8 @@ import {AddToCartDialogComponent} from '../Dialogs/AddToCart/add-to-cart-dialog/
 import {FormControl, Validators, FormGroup} from '@angular/forms';
 import { UserService } from '../Services/user/user.service';
 import {DeleteProductDialogComponent} from '../Dialogs/DeleteProduct/delete-product-dialog/delete-product-dialog.component';
+import {CatergoriesDialogComponent} from '../Dialogs/Category/catergories-dialog/catergories-dialog.component';
+import { CategoryService } from '../Services/category/category.service';
 
 @Component({
   selector: 'app-product-manage',
@@ -27,7 +29,8 @@ export class ProductManageComponent implements OnInit {
 
   constructor(private productService:ProductService,
     private userService:UserService,
-    private dialog:MatDialog) {  
+    private dialog:MatDialog,
+    private categoryService:CategoryService) {  
       this.currentUser = userService.getCurrentUserNotFromServer();
       if (this.currentUser.isAdmin) {
         this.displayedColumns = ['name', 'price', 'weight', 'image', 'deleteProduct'];
@@ -35,6 +38,15 @@ export class ProductManageComponent implements OnInit {
       } else {
         this.displayedColumns = ['name', 'price', 'weight', 'image', 'addToCart'];
       }
+
+      this.categoryService.categories.subscribe(res => {
+        debugger; 
+        if(res!=null){
+          debugger;
+          this.categories = res.slice();
+          this.categories.push({_id:null, name:'None'});
+        }
+      });
     }
 
   filterProductForm: FormGroup;
@@ -52,12 +64,7 @@ export class ProductManageComponent implements OnInit {
   });
   }
 
-  categories = [
-    {value: '1', viewValue: 'Milk and Eggs'},
-    {value: '2', viewValue: 'Fruits and Vegetables'},
-    {value: '3', viewValue: 'Meat Chicken and Fish'},
-    {value: '4', viewValue: 'Bread and bakery products'}
-  ];
+  categories = [];
 
   openAddProductModal() {
     let dialogRef = this.dialog.open(AddProductDialogComponent, {
@@ -106,6 +113,17 @@ export class ProductManageComponent implements OnInit {
         this.isSpinner = false;
       });  
     }
+  }
+
+  openCategoriesModal(){
+    let dialogRef = this.dialog.open(CatergoriesDialogComponent, {
+      width: '600px',
+      data: 'This text is passed into the dialog!'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog closed: ${result}`);
+      //this.dialogResult = result;
+    });
   }
 }
 

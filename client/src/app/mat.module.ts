@@ -1,6 +1,7 @@
 import {
   NgModule
 } from '@angular/core';
+import {ScrollDispatchModule} from '@angular/cdk/scrolling';
 import {
   BrowserAnimationsModule
 } from '@angular/platform-browser/animations';
@@ -42,7 +43,8 @@ const mats = [
   MatTableModule,
   MatCheckboxModule,
   MatSelectModule,
-  MatButtonToggleModule
+  MatButtonToggleModule,
+  ScrollDispatchModule
 ]
 
 @NgModule({

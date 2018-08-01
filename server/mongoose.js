@@ -51,6 +51,9 @@ module.exports = function () {
     category: {type:Number}
   });
 
+  var snCategorySchema = new Schema({
+    name: {type: String, required: true, unique: true},
+  });
 
   snUserSchema.set('toJSON', {getters: true, virtuals: true});
   snFacebookUserSchema.set('toJSON', {getters: true, virtuals: true});
@@ -145,6 +148,7 @@ module.exports = function () {
   mongoose.model('snUser', snUserSchema);
   mongoose.model('snFacebookUser', snFacebookUserSchema);
   mongoose.model('snProducts', snProductSchema);
+  mongoose.model('snCategories', snCategorySchema);
   
   return db;
 };

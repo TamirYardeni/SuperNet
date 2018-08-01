@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from './Services/user/user.service';
 import { Router } from '@angular/router';
+import {CategoryService} from './Services/category/category.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,8 @@ export class AppComponent implements OnInit{
   public isAdmin :Boolean;
   public isLoggedIn :Boolean;
 
-  constructor(private userService: UserService, private router: Router) { 
+  constructor(private userService: UserService, private router: Router,
+  private categoryService:CategoryService) { 
     this.userService.initCurrentUser();
   }
 
@@ -33,6 +35,8 @@ export class AppComponent implements OnInit{
         this.isLoggedIn = res;
       }
     });
+
+    this.categoryService.getAllCategories();
 
   }
 

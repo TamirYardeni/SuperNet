@@ -1,14 +1,3 @@
-<!--<p>
-  add-to-cart-dialog works!
-  amount
-  weight
-  ok button
-  cancel
- 
-  <button mat-button (click)="addToCartOk()">OK</button>
-  <button mat-button (click)="addToCartCancel()">Cancel</button>
-</p>-->
-
 <form [formGroup]="amountForm" *ngIf="!isSubmitted" #addProductForm novalidate class="amount-form" (ngSubmit)="onSubmit()">
   <mat-form-field *ngIf="!isWeight" class="add-amount-field-full-width">
     <input matInput class="form-control" formControlName="amount" placeholder="Amount" value="">

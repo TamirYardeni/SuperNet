@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {FormControl, Validators, FormGroup} from '@angular/forms';
 import {ProductService} from '../../../Services/product/product.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {CategoryService} from '../../../Services/category/category.service';
 
 @Component({
   selector: 'app-add-product-dialog',
@@ -11,7 +12,17 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 export class AddProductDialogComponent implements OnInit {
   @ViewChild('addProductForm') form: ElementRef;
   constructor(private productService:ProductService,
-    public dialogRef: MatDialogRef<AddProductDialogComponent>) { }
+    public dialogRef: MatDialogRef<AddProductDialogComponent>,
+    private categoryService:CategoryService) { 
+      
+      this.categoryService.categories.subscribe(res => {
+        debugger; 
+        if(res!=null){
+          debugger;
+          this.categories = res;
+        }
+      });
+    }
 
   myform: FormGroup;
   isSubmitted: Boolean;
@@ -30,12 +41,7 @@ export class AddProductDialogComponent implements OnInit {
     });
   }
 
-  categories = [
-    {value: '1', viewValue: 'Milk and Eggs'},
-    {value: '2', viewValue: 'Fruits and Vegetables'},
-    {value: '3', viewValue: 'Meat Chicken and Fish'},
-    {value: '4', viewValue: 'Bread and bakery products'}
-  ];
+  categories = [];
 
   onSubmit() {
     if (this.myform.valid) {

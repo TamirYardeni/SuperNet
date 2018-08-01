@@ -1,0 +1,22 @@
+<mat-list id='lst' role="list">
+    <mat-list-item *ngFor="let category of categories" role="listitem">
+      {{category.name}}
+      <button (click)="deleteCategory(category)" mat-button>
+          <i class="material-icons deleteBtnIcon">delete</i>
+      </button>
+    </mat-list-item>
+</mat-list>
+
+
+
+<form [formGroup]="categoriesForm" novalidate class="categories-form" (ngSubmit)="onSubmit()">
+    <mat-form-field class="add-categories-field-full-width">
+        <input matInput id="categoryNameToInsert" formControlName="name" placeholder="new category" value="">
+    </mat-form-field>
+    <button mat-button type="submit" class="btn btn-primary"
+
+     [disabled]="this.categoriesForm.value.name==null || this.categoriesForm.value.name==''">Add</button>
+</form>
+
+
+<button mat-button (click)="closeDialog()">Close</button>
