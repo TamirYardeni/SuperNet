@@ -16,9 +16,7 @@ export class AddProductDialogComponent implements OnInit {
     private categoryService:CategoryService) { 
       
       this.categoryService.categories.subscribe(res => {
-        debugger; 
         if(res!=null){
-          debugger;
           this.categories = res;
         }
       });

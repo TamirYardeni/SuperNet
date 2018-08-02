@@ -180,7 +180,12 @@ var deleteProduct = function(req, res) {
 var addCartToUser = function(req, res) {
   snUser.findOneAndUpdate({_id:req.body.usr}, 
     { $push: {"carts":{"date": new Date(), "detailes":req.body.cart}}}).exec(function(err, changeUser){
-    console.log(changeUser);
+    if (err!=null) {
+      res.statusCode = 500;
+      res.json(err);
+    } else {
+      res.json(changeUser);
+    }
   });
 };
 

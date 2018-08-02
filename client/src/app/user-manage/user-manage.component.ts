@@ -47,16 +47,10 @@ export class UserManageComponent implements OnInit {
   }
 
   onSubmit() {
-    debugger;
     if (this.filterUserForm.valid) {
       this.isSubmitted = true;
       this.isSpinner = true;
       this.userService.getUsers(this.filterUserForm.value).then((users: Element[]) => {
-
-        /*users.forEach(user => {
-          delete user['_id'];
-        });*/
-        debugger;
         console.log(users);
         this.dataSource = new MatTableDataSource(users);
         this.isSpinner = false;
@@ -65,7 +59,6 @@ export class UserManageComponent implements OnInit {
   }
 
   changeAdminStatus(userId, isChecked) {
-    debugger;
     var isChanged = false;
     this.userChangedStatuses.forEach(function(node) {
       if (node.id == userId) {

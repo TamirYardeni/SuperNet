@@ -40,9 +40,8 @@ export class ProductManageComponent implements OnInit {
       }
 
       this.categoryService.categories.subscribe(res => {
-        debugger; 
+
         if(res!=null){
-          debugger;
           this.categories = res.slice();
           this.categories.push({_id:null, name:'None'});
         }

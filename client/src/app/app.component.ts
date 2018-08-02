@@ -18,19 +18,16 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit() {
-    debugger;
     /*this.userService.getCurrentUser().then(profile => this.currentUser = profile)
         .catch(() => this.currentUser = {});*/
 
     this.userService.isAdmin.subscribe(res => {
-      debugger; 
       if(res!=null){
         this.isAdmin = res;
       }
     });
 
     this.userService.isLoggedInObs.subscribe(res => {
-      debugger; 
       if(res!=null){
         this.isLoggedIn = res;
       }
@@ -41,7 +38,6 @@ export class AppComponent implements OnInit{
   }
 
   menuButtonClicked(routName) {
-    debugger;
     this.router.navigate([routName]);
   }
 

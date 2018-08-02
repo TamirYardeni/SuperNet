@@ -12,6 +12,7 @@ import { UserService } from './Services/user/user.service';
 import { ProductService } from './Services/product/product.service';
 import { CartService } from './Services/cart/cart.service';
 import { CategoryService } from './Services/category/category.service';
+import { MapService } from './Services/map/map.service';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthHttp, AuthConfig, AUTH_PROVIDERS } from 'angular2-jwt';
@@ -33,6 +34,7 @@ import { AddProductDialogComponent } from './Dialogs/AddProduct/add-product-dial
 import { AddToCartDialogComponent } from './Dialogs/AddToCart/add-to-cart-dialog/add-to-cart-dialog.component';
 import { DeleteProductDialogComponent } from './Dialogs/DeleteProduct/delete-product-dialog/delete-product-dialog.component';
 import { CatergoriesDialogComponent } from './Dialogs/Category/catergories-dialog/catergories-dialog.component';
+import { MapComponent } from './map/map.component';
 
 export function getAuthHttp(http: Http) {
   return new AuthHttp(new AuthConfig({
@@ -58,7 +60,8 @@ export function getAuthHttp(http: Http) {
     AddProductDialogComponent,
     AddToCartDialogComponent,
     DeleteProductDialogComponent,
-    CatergoriesDialogComponent
+    CatergoriesDialogComponent,
+    MapComponent
   ],
   exports: [
     ReactiveFormsModule
@@ -84,6 +87,7 @@ export function getAuthHttp(http: Http) {
     ProductService,
     CartService,
     CategoryService,
+    MapService,
     AUTH_PROVIDERS,
     {
       provide: AuthHttp,

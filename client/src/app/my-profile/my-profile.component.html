@@ -9,10 +9,13 @@
     {{user.email}}
     <br>
     <label>Address</label>
-    {{user.Address}}
-    <br>
-    Put map here with edit address option
-    <br>
-    <label>Previous Orders</label>
-    {{user.cart}}
+    {{user.address}}
+    
 </section>
+
+<div class="container">
+  <app-map class="map"></app-map>
+</div>
+
+<label>Previous Orders</label>
+    {{user.carts}}

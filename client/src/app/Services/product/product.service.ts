@@ -15,7 +15,6 @@ export class ProductService {
         return this.http.get('http://localhost:3000/api/v1/products/'+JSON.stringify(filter))
               .toPromise()
               .then(response => {
-                debugger;
                 
                 resolve(response.json());
               })
@@ -29,7 +28,6 @@ export class ProductService {
         return this.http.post('http://localhost:3000/api/v1/products', {product})
                 .toPromise()
                 .then(response => {
-                  debugger;
                   
                   resolve(true);
                 })
@@ -43,12 +41,9 @@ export class ProductService {
   deleteProduct(id) {
     return new Promise((resolve, reject) => {
       if (this.userService.getCurrentUserNotFromServer().isAdmin) {
-        debugger;
         return this.http.delete('http://localhost:3000/api/v1/products/'+id)
                 .toPromise()
                 .then(response => {
-                  debugger;
-                  
                   resolve(true);
                 })
                 .catch((e) => { resolve(false);});

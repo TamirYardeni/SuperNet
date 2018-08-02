@@ -76,5 +76,5 @@
   </mat-table>
 </div>
 
-<button mat-button color="white" (click)="openAddProductModal()">Add</button>
-<button mat-button color="white" (click)="openCategoriesModal()">Manage Categories</button>
+<button mat-button *ngIf="currentUser.isAdmin" color="white" (click)="openAddProductModal()">Add</button>
+<button mat-button *ngIf="currentUser.isAdmin" color="white" (click)="openCategoriesModal()">Manage Categories</button>

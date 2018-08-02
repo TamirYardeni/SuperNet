@@ -24,6 +24,9 @@ export class UserService {
   private isAdminBS = new BehaviorSubject<any>(null); 
   isAdmin = this.isAdminBS.asObservable();
 
+  private addressBS = new BehaviorSubject<any>(null); 
+  address = this.addressBS.asObservable();
+
   private isLoggedInBS = new BehaviorSubject<any>(null); 
   isLoggedInObs = this.isLoggedInBS.asObservable();
 
@@ -36,12 +39,10 @@ export class UserService {
     return new Promise((resolve, reject) => {
       FB.login(result => {
         if (result.authResponse) {
-          debugger;
 
           return this.http.post('http://localhost:3000/api/v1/auth/facebook', {access_token: result.authResponse.accessToken})
               .toPromise()
               .then(response => {
-                debugger;
                 var token = response.headers.get('x-auth-token');
                 if (token) {
                   localStorage.setItem('id_token_sn', token);
@@ -60,20 +61,22 @@ export class UserService {
     localStorage.removeItem('id_token_sn');
   }
 
-  isLoggedIn() {
-    debugger;
+  isLoggedIn() {    
     return new Promise((resolve, reject) => {
       this.getCurrentUser().then(user => resolve(true)).catch(() => reject(false));
     });
   }
 
   getCurrentUser() {
-    debugger;
     return new Promise((resolve, reject) => {
       return this.http.get('http://localhost:3000/api/v1/auth/me').toPromise().then(response => {
         this.currentUser = response.json();
         this.isAdminBS.next(this.currentUser.isAdmin);
         this.isLoggedInBS.next(true);
+        debugger;
+        if (this.currentUser.address!=null) {
+          this.addressBS.next(this.currentUser.address);
+        }
         resolve(response.json());
       }).catch(() => {this.isAdminBS.next(false); this.isLoggedInBS.next(false); reject();});
     });
@@ -85,9 +88,7 @@ export class UserService {
   
   getHealthCheck() {
     return new Promise((resolve, reject) => {
-      debugger;
       return this.http.get('http://localhost:3000/api/v1/health-check').toPromise().then(response => {
-        debugger;
         resolve(response);
       })});
   }
@@ -97,7 +98,6 @@ export class UserService {
         return this.http.get('http://localhost:3000/api/v1/users/'+JSON.stringify(filter))
               .toPromise()
               .then(response => {
-                debugger;
                 
                 resolve(response.json());
               })
@@ -106,14 +106,10 @@ export class UserService {
   }
 
   updateAdminStatuses(adminStatuses) {
-    debugger;
-
     return new Promise((resolve, reject) => {
       return this.http.post('http://localhost:3000/api/v1/users/status', adminStatuses)
             .toPromise()
             .then(response => {
-              debugger;
-              
               resolve(response.json());
             })
             .catch((e) => { reject();}); 

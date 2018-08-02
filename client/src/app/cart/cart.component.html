@@ -1,6 +1,10 @@
-<p>
-  cart works!
-</p>
-<pre>{{cartDetails | json}}</pre>
+<section *ngIf="!isPayed">
+  <pre>{{cartDetails | json}}</pre>
 
-<button mat-button (click)="saveCart()">Pay</button>
+  <button mat-button (click)="saveCart()">Pay</button>
+</section>
+
+<section *ngIf="isPayed">
+  payed!!!
+  <button mat-button (click)="returnToMain()">Return to main page</button>
+</section>
