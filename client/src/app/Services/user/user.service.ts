@@ -115,4 +115,16 @@ export class UserService {
             .catch((e) => { reject();}); 
     });
   }
+
+  updateAddress(address) {
+    return new Promise((resolve, reject) => {
+      return this.http.post('http://localhost:3000/api/v1/users/address', 
+      {_id:this.currentUser._id, address:address})
+            .toPromise()
+            .then(response => {
+              resolve(response.json());
+            })
+            .catch((e) => { reject();}); 
+    });
+  }
 }

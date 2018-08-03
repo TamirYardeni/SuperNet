@@ -21,7 +21,7 @@ module.exports = function () {
       },
       select: false
     },
-    Address:{type: String},
+    address:{type: String},
     carts:{type: Array},
     isAdmin: {type: Boolean}
   });
@@ -83,7 +83,7 @@ module.exports = function () {
     var newUser = new that({
       fullName: profile.displayName,
       email: profile.emails[0].value,
-      Address:profile.Address,
+      address:profile.Address,
       carts:[],
       isAdmin: 0
     });

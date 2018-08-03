@@ -8,3 +8,18 @@
     grid-column-start: 1;
     grid-column-end: 7;
 }*/
+
+
+header {
+    text-align: center;
+    font-family: "Merienda One"; 
+}
+
+section {
+    font-family: "Merienda One"; 
+    text-align: center;
+}
+
+.container {
+    margin-left: 23vw;
+}

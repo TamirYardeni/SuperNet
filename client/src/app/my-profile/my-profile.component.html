@@ -1,16 +1,19 @@
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merienda+One" />
 <header>
   <h1>Personal Details</h1>
 </header>
 <section>
-    <label>Id</label>
-    {{user._id}}
-    <br>
-    <label>Email</label>
+    <label>Email:</label>
     {{user.email}}
     <br>
-    <label>Address</label>
+    <label>Address:</label>
     {{user.address}}
-    
+    <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <input #address id="address" matInput [disabled]="!isEdit">
+        </mat-form-field>
+        <button mat-button id='editBtn' (click)="changeState()">Edit</button>
+    </form>
 </section>
 
 <div class="container">

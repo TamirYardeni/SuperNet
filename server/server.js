@@ -240,6 +240,13 @@ var deleteCategory = function(req, res) {
   });
 }
 
+var changeAddress = function(req, res) {
+  var adr = req.body.address.toString();
+  snUser.findOneAndUpdate({_id:req.body._id}, { "address": adr }, {upsert: true}, function(err, user){
+    res.json(user);
+  });
+}
+
 router.route('/auth/me')
   .get(authenticate, getCurrentUser, getOne);
 
@@ -251,6 +258,9 @@ router.route('/users/status')
 
 router.route('/user/cart')
   .post(authenticate, addCartToUser); 
+
+router.route('/users/address')
+  .post(authenticate, changeAddress);
 
 router.route('/products')
   .post(authenticate, addProduct);
