@@ -57,6 +57,17 @@ export class UserService {
     });
   }
 
+  share(url: string) {
+    FB.ui({
+      method: 'share',
+      title: 'your_title',  // The same than name in feed method
+      caption: 'your_caption',  
+      description: 'your_description',
+      href: 'https://developers.facebook.com/docs/',
+    }, function(response){});
+   
+  }
+
   logout() {
     localStorage.removeItem('id_token_sn');
   }

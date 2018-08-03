@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {CartService} from '../Services/cart/cart.service';
 import {MatTableDataSource} from '@angular/material';
 import { Router } from '@angular/router';
+import { UserService } from '../Services/user/user.service';
 
 @Component({
   selector: 'app-cart',
@@ -15,7 +16,8 @@ export class CartComponent implements OnInit {
   dataSource= new MatTableDataSource();
 
   constructor(private cartService:CartService,
-              private router: Router) { }
+              private router: Router,
+              private userService: UserService) { }
 
   cartDetails;
   isPayed: Boolean;
@@ -42,6 +44,10 @@ export class CartComponent implements OnInit {
 
   returnToMain() {
     this.router.navigate(['/welcome']);
+  }
+
+  share() {
+    this.userService.share("I just bought in SuperNet");
   }
 }
 
