@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class CartComponent implements OnInit {
 
-  displayedColumns = ['name', 'image', 'price', 'weight', 'deleteProduct'];
+  displayedColumns = ['name', 'image', 'price', 'weight', 'weightAmount', 'deleteProduct'];
 
   dataSource= new MatTableDataSource();
 
@@ -50,5 +50,6 @@ export interface Element {
   amount: number;
   price: number;
   weight: number;
+  weightAmount:number;
   imageUrl: string;
 }

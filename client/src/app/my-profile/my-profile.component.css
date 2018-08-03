@@ -23,3 +23,16 @@ section {
 .container {
     margin-left: 23vw;
 }
+
+h3{
+    text-decoration: underline;
+    text-align: center!important;
+}
+
+.prev-orders{
+    width: 57vw!important;
+    margin-left: 20vw!important;
+    overflow: auto;
+    height: 25vh;
+    border-color: darkgrey;
+}

@@ -21,11 +21,17 @@
           <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.price}} </mat-cell>
         </ng-container>
-    
+
         <!-- Weight Column -->
         <ng-container matColumnDef="weight">
+          <mat-header-cell *matHeaderCellDef> Weight for price </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.weight}} {{element.weight ? 'gr' : ''}} </mat-cell>
+        </ng-container>
+    
+        <!-- Weight Column -->
+        <ng-container matColumnDef="weightAmount">
           <mat-header-cell *matHeaderCellDef> Weight / Amount </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.weight}} {{element.amount}} {{element.weight ? 'gr' : ''}} </mat-cell>
+          <mat-cell *matCellDef="let element"> {{element.weightAmount}} {{element.amount}} {{element.weightAmount ? 'gr' : ''}} </mat-cell>
         </ng-container>
     
           <!-- Delete product Column -->

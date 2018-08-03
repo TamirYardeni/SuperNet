@@ -44,9 +44,9 @@ export class AddToCartDialogComponent implements OnInit {
 
   onSubmit() {
     this.isSubmitted = true;
-    var cartNode = this.data;
+    var cartNode = JSON.parse(JSON.stringify(this.data));
     cartNode.isWeight = this.isWeight;
-    cartNode.weight = this.amountForm.value.weight;
+    cartNode.weightAmount = this.amountForm.value.weight;
     cartNode.amount = this.amountForm.value.amount;
     this.cartService.addToCart(cartNode);
       /*this.productService.addProduct(this.myform.value).then((isAdded) => {

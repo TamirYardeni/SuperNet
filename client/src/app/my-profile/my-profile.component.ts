@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import {UserService} from '../Services/user/user.service';
 import { MatInput, MatButton } from '@angular/material';
+import {MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-my-profile',
@@ -12,6 +13,8 @@ export class MyProfileComponent implements OnInit {
 
   isEdit:Boolean;
   user: JSON;
+  displayedColumns = ['date', 'total'];
+  dataSource= new MatTableDataSource();
 
   constructor(private userService:UserService) { 
     this.isEdit = false;
@@ -20,6 +23,7 @@ export class MyProfileComponent implements OnInit {
   ngOnInit() {
     this.user = this.userService.getCurrentUserNotFromServer();
     (<MatInput>this.address.nativeElement).value = this.user['address'];
+    this.dataSource = new MatTableDataSource(this.user['carts']);
   }
 
   changeState() {
@@ -31,6 +35,7 @@ export class MyProfileComponent implements OnInit {
         this.userService.getCurrentUser().then((user:JSON)=> {
           this.user = user;
           (<MatInput>this.address.nativeElement).value = this.user['address'];
+          this.dataSource = new MatTableDataSource(this.user['carts']);
         });
       });
     } else {
