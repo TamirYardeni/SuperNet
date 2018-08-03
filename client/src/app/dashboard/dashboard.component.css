@@ -50,6 +50,16 @@ aside > video {
   margin: .5rem;
 }
 
+.aboutTxt {
+  text-align: left;
+}
+
+.container{
+  margin-left: 16vw;
+  margin-top: 2vh;
+  width: 100vw;
+}
+
 /*@font-face {
   font-family: myFirstFont;
   src: url(../../assets/fonts/themify.woff);
