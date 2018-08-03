@@ -3,6 +3,7 @@ import {CartService} from '../Services/cart/cart.service';
 import {MatTableDataSource} from '@angular/material';
 import { Router } from '@angular/router';
 import { UserService } from '../Services/user/user.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-cart',
@@ -16,30 +17,36 @@ export class CartComponent implements OnInit {
   dataSource= new MatTableDataSource();
 
   constructor(private cartService:CartService,
+              private http: HttpClient,
               private router: Router,
               private userService: UserService) { }
 
   cartDetails;
   isPayed: Boolean;
+  money;
+  totalPrice:Number;
 
   ngOnInit() {
     this.isPayed = false;
     this.cartDetails = this.cartService.getCartDetails();
     this.dataSource = new MatTableDataSource(this.cartDetails);
+    this.totalPrice = 0;
+    this.calcTotalAmount();
   }
 
   saveCart() {
     this.cartService.saveCart().then((isAdded)=> {
       this.isPayed = true;
       this.cartService.deleteAllCart();
+      this.totalPrice = 0.0;
     });
   }
 
   deleteProductFromCart(product) {
-    debugger;
     this.cartService.deleteFromCart(product);
     this.cartDetails = this.cartService.getCartDetails();
     this.dataSource = new MatTableDataSource(this.cartDetails);
+    this.calcTotalAmount();
   }
 
   returnToMain() {
@@ -48,6 +55,20 @@ export class CartComponent implements OnInit {
 
   share() {
     this.userService.share("I just bought in SuperNet");
+  }
+
+  calcTotalAmount() {
+    var total = 0.0;
+    this.cartDetails.forEach(function(product) {
+      debugger;
+      if (product.isWeight) {
+        total = total + (product.weight * product.weightAmount * product.price);
+      } else {
+        total =total +  (product.amount * product.price);
+      }
+    });
+
+    this.totalPrice = total;
   }
 }
 

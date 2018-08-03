@@ -50,10 +50,14 @@
     </div>
 
   <button mat-button [disabled]="cartDetails.length==0" (click)="saveCart()">Pay</button>
+  {{totalPrice}}
 </section>
 
 <section *ngIf="isPayed">
   payed!!!
   <button mat-button (click)="returnToMain()">Return to main page</button>
   <button mat-button (click)="share()">Share</button>
+  <p>
+    {{money}}
+  </p>
 </section>

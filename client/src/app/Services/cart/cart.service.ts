@@ -21,7 +21,6 @@ export class CartService {
       return this.http.post('http://localhost:3000/api/v1/user/cart', {cart:this.products, usr:user._id})
               .toPromise()
               .then(response => {
-                debugger;
                 resolve(true);
               })
               .catch((e) => { resolve(false);});
@@ -29,7 +28,6 @@ export class CartService {
   }
 
   addToCart(cartNode) {
-    debugger;
     this.products.push(JSON.parse(JSON.stringify(cartNode)));
     console.log(this.products);
   }

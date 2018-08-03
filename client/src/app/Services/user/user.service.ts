@@ -84,7 +84,7 @@ export class UserService {
         this.currentUser = response.json();
         this.isAdminBS.next(this.currentUser.isAdmin);
         this.isLoggedInBS.next(true);
-        debugger;
+
         if (this.currentUser.address!=null) {
           this.addressBS.next(this.currentUser.address);
         }

@@ -44,7 +44,6 @@ export class AppComponent implements OnInit{
   }
 
   afterLoading() {
-    debugger;
     this.ctx.clearRect(0, 0, 100,100);
     this.ctx.drawImage(this.imageObj.nativeElement,0,0, 100, 50);  
   }

@@ -19,8 +19,7 @@ export class MapComponent implements OnInit {
   constructor(private geoLocationService: MapService,
               private userService: UserService) { }
 
-  ngOnInit() {
-    debugger;
+  ngOnInit() {   
     var latlng = new google.maps.LatLng(-34.397, 150.644);
 
     var mapProp = {
