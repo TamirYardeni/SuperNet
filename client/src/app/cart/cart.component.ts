@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CartService} from '../Services/cart/cart.service';
+import {MatTableDataSource} from '@angular/material';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,6 +9,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
+
+  displayedColumns = ['name', 'image', 'price', 'weight', 'deleteProduct'];
+
+  dataSource= new MatTableDataSource();
 
   constructor(private cartService:CartService,
               private router: Router) { }
@@ -18,6 +23,7 @@ export class CartComponent implements OnInit {
   ngOnInit() {
     this.isPayed = false;
     this.cartDetails = this.cartService.getCartDetails();
+    this.dataSource = new MatTableDataSource(this.cartDetails);
   }
 
   saveCart() {
@@ -27,7 +33,22 @@ export class CartComponent implements OnInit {
     });
   }
 
+  deleteProductFromCart(product) {
+    debugger;
+    this.cartService.deleteFromCart(product);
+    this.cartDetails = this.cartService.getCartDetails();
+    this.dataSource = new MatTableDataSource(this.cartDetails);
+  }
+
   returnToMain() {
     this.router.navigate(['/welcome']);
   }
+}
+
+export interface Element {
+  name: string;
+  amount: number;
+  price: number;
+  weight: number;
+  imageUrl: string;
 }

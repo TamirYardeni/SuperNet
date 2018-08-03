@@ -1,7 +1,49 @@
 <section *ngIf="!isPayed">
-  <pre>{{cartDetails | json}}</pre>
+  <div class="example-container mat-elevation-z8">
+      <mat-table #table [dataSource]="dataSource">
+        
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+        </ng-container>
 
-  <button mat-button (click)="saveCart()">Pay</button>
+        <!-- Image Column -->
+        <ng-container matColumnDef="image">
+            <mat-header-cell *matHeaderCellDef> Image </mat-header-cell>
+            <mat-cell *matCellDef="let element"> 
+                <img class="productImage" src={{element.imageUrl}}>
+            </mat-cell>
+          </ng-container>
+    
+        <!-- Price Column -->
+        <ng-container matColumnDef="price">
+          <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.price}} </mat-cell>
+        </ng-container>
+    
+        <!-- Weight Column -->
+        <ng-container matColumnDef="weight">
+          <mat-header-cell *matHeaderCellDef> Weight / Amount </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.weight}} {{element.amount}} {{element.weight ? 'gr' : ''}} </mat-cell>
+        </ng-container>
+    
+          <!-- Delete product Column -->
+        <ng-container matColumnDef="deleteProduct">
+          <mat-header-cell *matHeaderCellDef> Delete Product </mat-header-cell>
+          <mat-cell *matCellDef="let element"> 
+              <button (click)="deleteProductFromCart(element)" mat-button>
+                  <i class="material-icons deleteBtnIcon">delete</i>
+              </button>
+          </mat-cell>
+        </ng-container>
+    
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </div>
+
+  <button mat-button [disabled]="cartDetails.length==0" (click)="saveCart()">Pay</button>
 </section>
 
 <section *ngIf="isPayed">

@@ -29,13 +29,16 @@ export class CartService {
   }
 
   addToCart(cartNode) {
-    this.products.push(cartNode);
+    debugger;
+    this.products.push(JSON.parse(JSON.stringify(cartNode)));
     console.log(this.products);
   }
 
-  deleteFromCart(productId) {
-    this.products.forEach(product => {
-      delete product['_id'];
+  deleteFromCart(product) {
+    this.products.forEach(function(item, index, object) {
+      if (item === product) {
+        object.splice(index, 1);
+      }
     });
   }
 
