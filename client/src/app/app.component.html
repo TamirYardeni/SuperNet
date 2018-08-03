@@ -1,5 +1,10 @@
 <mat-toolbar color="primary" class="toolbar">
-  <img class="logo" id="logo" src="../assets/images/logo2.png">
+  <!--<canvas id="myCanvas" width="250" height="300"
+    style="border:1px solid #d3d3d3;">
+    Your browser does not support the HTML5 canvas tag.</canvas>-->
+    <img #pdf style="display: none;" width="100" height="50" (load)="afterLoading()" src="../assets/img/logo.PNG" />
+    <canvas #canvas id="canvas" width="100" height="50"></canvas>
+  
     <nav class="button-row">
       <button *ngIf="isAdmin" mat-button color="white" (click)="menuButtonClicked('users')">Users</button>
       <button *ngIf="isAdmin" mat-button color="white" (click)="menuButtonClicked('products')">Products</button>
