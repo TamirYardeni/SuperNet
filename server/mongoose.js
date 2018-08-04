@@ -48,7 +48,7 @@ module.exports = function () {
     price: {type: Number},
     isWeight: {type: Boolean},
     weight:{type: Number},
-    category: {type:Number}
+    category: {type:String}
   });
 
   var snCategorySchema = new Schema({

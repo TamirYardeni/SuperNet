@@ -15,3 +15,43 @@
 .deleteBtnIcon {
     color: #e53935;
 }
+
+.form-control {
+    width:17vw;
+    display: inline-block;
+}
+
+.space {
+    margin-right: 4vw;
+}
+
+.btnSpace {
+    margin-right: 8vw;
+}
+
+.mat-card {
+    margin-left: 10vw;
+    margin-right: 10vw;
+    margin-top: 4vh;
+}
+
+.filter-product-form {
+    align-content: center;
+}
+
+.product-table {
+    margin-top: 4vh;
+    width: 80vw;
+    position: relative;
+    left: 10vw;
+}
+
+
+.manager {
+    position: absolute;
+    bottom: 0px;
+    /* right: 25vw; */
+    left: 42vw;
+    background-color: white;
+    box-shadow: 1px 1px 3px 2px;
+}
