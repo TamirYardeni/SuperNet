@@ -1,18 +1,48 @@
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merienda+One" />
 <header>
   <h1>Personal Details</h1>
 </header>
 <section>
-    <label>Id</label>
-    {{user._id}}
-    <br>
-    <label>Email</label>
+    <label>Email:</label>
     {{user.email}}
     <br>
-    <label>Address</label>
-    {{user.Address}}
-    <br>
-    Put map here with edit address option
-    <br>
-    <label>Previous Orders</label>
-    {{user.cart}}
+    <label>Address:</label>
+    {{user.address}}
+    <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <input #address id="address" matInput [disabled]="!isEdit">
+        </mat-form-field>
+        <button mat-button id='editBtn' (click)="changeState()">Edit</button>
+    </form>
 </section>
+
+<div class="container">
+  <app-map class="map"></app-map>
+</div>
+
+<h3>Previous Orders</h3>
+    <div class="prev-orders">
+      <mat-table #table [dataSource]="dataSource">
+    
+        <!-- Date Column -->
+        <ng-container matColumnDef="date">
+          <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.date}} </mat-cell>
+        </ng-container>
+    
+        <!-- Total Column -->
+        <ng-container matColumnDef="total">
+          <mat-header-cell *matHeaderCellDef> Total </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.total}} </mat-cell>
+        </ng-container>
+    
+        <!-- Symbol Column 
+        <ng-container matColumnDef="symbol">
+          <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+        </ng-container>-->
+    
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </div>

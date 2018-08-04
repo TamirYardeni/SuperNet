@@ -1,0 +1,38 @@
+/*.container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    width: 100%;
+}
+
+.map {
+    grid-column-start: 1;
+    grid-column-end: 7;
+}*/
+
+
+header {
+    text-align: center;
+    font-family: "Merienda One"; 
+}
+
+section {
+    font-family: "Merienda One"; 
+    text-align: center;
+}
+
+.container {
+    margin-left: 23vw;
+}
+
+h3{
+    text-decoration: underline;
+    text-align: center!important;
+}
+
+.prev-orders{
+    width: 57vw!important;
+    margin-left: 20vw!important;
+    overflow: auto;
+    height: 25vh;
+    border-color: darkgrey;
+}

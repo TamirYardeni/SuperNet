@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { UserService } from './Services/user/user.service';
 import { Router } from '@angular/router';
 import {CategoryService} from './Services/category/category.service';
@@ -9,6 +9,12 @@ import {CategoryService} from './Services/category/category.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
+  @ViewChild('canvas') public canvas: ElementRef;
+  //Assets
+  @ViewChild('pdf') imageObj: ElementRef;
+  canvasEl: any;
+  ctx: CanvasRenderingContext2D;
+
   public isAdmin :Boolean;
   public isLoggedIn :Boolean;
 
@@ -18,19 +24,16 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit() {
-    debugger;
     /*this.userService.getCurrentUser().then(profile => this.currentUser = profile)
         .catch(() => this.currentUser = {});*/
 
     this.userService.isAdmin.subscribe(res => {
-      debugger; 
       if(res!=null){
         this.isAdmin = res;
       }
     });
 
     this.userService.isLoggedInObs.subscribe(res => {
-      debugger; 
       if(res!=null){
         this.isLoggedIn = res;
       }
@@ -40,8 +43,16 @@ export class AppComponent implements OnInit{
 
   }
 
+  afterLoading() {
+    this.ctx.clearRect(0, 0, 100,100);
+    this.ctx.drawImage(this.imageObj.nativeElement,0,0, 100, 50);  
+  }
+
+  ngAfterViewInit() {
+    this.ctx = this.canvas.nativeElement.getContext("2d");
+  }
+
   menuButtonClicked(routName) {
-    debugger;
     this.router.navigate([routName]);
   }
 

@@ -10,6 +10,9 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
+  "pre-commit": [
+    "lint"
+  ],
   "private": true,
   "dependencies": {
     "@angular/animations": "^5.2.10",
@@ -30,10 +33,13 @@
     "angular2-jwt": "^0.2.3",
     "angularx-social-login": "^1.1.8",
     "bootstrap": "^4.1.2",
+    "bootstrap-social": "^5.1.1",
     "core-js": "^2.4.1",
     "d3": "^5.5.0",
     "fb": "^2.0.0",
+    "geocluster": "^0.1.1",
     "jquery": "^3.3.1",
+    "marked": "^0.3.9",
     "ngx-bootstrap": "^3.0.0",
     "rxjs": "^5.5.2",
     "zone.js": "^0.8.14"
@@ -56,6 +62,7 @@
     "protractor": "~5.1.2",
     "ts-node": "~4.1.0",
     "tslint": "~5.9.1",
-    "typescript": "~2.5.3"
+    "typescript": "~2.5.3",
+    "pre-commit": "^1.2.2"
   }
 }

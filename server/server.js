@@ -178,9 +178,24 @@ var deleteProduct = function(req, res) {
 };
 
 var addCartToUser = function(req, res) {
+  var currCat = req.body.cart;
+  var totalAmount = 0.0;
+  currCat.forEach(function(product) {
+    if (product.isWeight) {
+      totalAmount += (product.weight * product.weightAmount * product.price);
+    } else {
+      totalAmount += (product.amount * product.price);
+    }
+  });
+
   snUser.findOneAndUpdate({_id:req.body.usr}, 
-    { $push: {"carts":{"date": new Date(), "detailes":req.body.cart}}}).exec(function(err, changeUser){
-    console.log(changeUser);
+    { $push: {"carts":{"date": new Date(), "detailes":req.body.cart, total: totalAmount}}}).exec(function(err, changeUser){
+    if (err!=null) {
+      res.statusCode = 500;
+      res.json(err);
+    } else {
+      res.json(changeUser);
+    }
   });
 };
 
@@ -235,6 +250,13 @@ var deleteCategory = function(req, res) {
   });
 }
 
+var changeAddress = function(req, res) {
+  var adr = req.body.address.toString();
+  snUser.findOneAndUpdate({_id:req.body._id}, { "address": adr }, {upsert: true}, function(err, user){
+    res.json(user);
+  });
+}
+
 router.route('/auth/me')
   .get(authenticate, getCurrentUser, getOne);
 
@@ -246,6 +268,9 @@ router.route('/users/status')
 
 router.route('/user/cart')
   .post(authenticate, addCartToUser); 
+
+router.route('/users/address')
+  .post(authenticate, changeAddress);
 
 router.route('/products')
   .post(authenticate, addProduct);

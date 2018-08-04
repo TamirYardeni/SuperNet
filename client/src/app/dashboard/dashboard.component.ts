@@ -10,17 +10,27 @@ import { Router } from '@angular/router';
 export class DashboardComponent implements OnInit {
 
   public currentUser : any = {};
-
+  newsTxt;
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
     this.userService.getCurrentUser().then(profile => this.currentUser = profile)
         .catch(() => this.currentUser = {});
-
-    var c= <HTMLCanvasElement> document.getElementById("myCanvas");
-    var ctx=c.getContext("2d");
-    ctx.font = "14px Arial";
-    ctx.strokeText("אין לי מושג מה עושים עם הcanvas הזה אבל חייב להשתמש בו לאליקציות אינטר", 100,20);
+    this.newsTxt = "";
+    var url = 'https://newsapi.org/v2/top-headlines?' +
+      'country=us&' +
+      'apiKey=6ee435df1f0d47439b3223b89e227267';
+    var req = new Request(url);
+    fetch(req).then((response) => {
+      var txt = "";
+      response.json().then(response => {
+          response['articles'].forEach(element => {
+            txt += element.title + " | ";
+          });
+          debugger;
+          this.newsTxt = txt;
+      });
+    });
   }
 
   logout() {
