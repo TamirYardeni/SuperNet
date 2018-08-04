@@ -43,22 +43,14 @@ export class AddToCartDialogComponent implements OnInit {
   }
 
   onSubmit() {
-    this.isSubmitted = true;
-    var cartNode = JSON.parse(JSON.stringify(this.data));
-    cartNode.isWeight = this.isWeight;
-    cartNode.weightAmount = this.amountForm.value.weight;
-    cartNode.amount = this.amountForm.value.amount;
-    this.cartService.addToCart(cartNode);
-      /*this.productService.addProduct(this.myform.value).then((isAdded) => {
-        if (isAdded) {
-          console.log('product added');
-        } else {
-          console.log('product not added');
-        }
-
-        this.isSpinner = false;
-        this.dialogRef.close();
-      });  */
-    this.closeModal();
+    if (this.amountForm.valid) {
+      this.isSubmitted = true;
+      var cartNode = JSON.parse(JSON.stringify(this.data));
+      cartNode.isWeight = this.isWeight;
+      cartNode.weightAmount = this.amountForm.value.weight;
+      cartNode.amount = this.amountForm.value.amount;
+      this.cartService.addToCart(cartNode);
+      this.closeModal();
+    }
   }
 }

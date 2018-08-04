@@ -78,7 +78,7 @@ export class ProductManageComponent implements OnInit {
 
   openAddToCartModal(product) {
     let dialogRef = this.dialog.open(AddToCartDialogComponent, {
-      width: '600px',
+      width: '28vw',
       data: product
     });
     dialogRef.afterClosed().subscribe(result => {

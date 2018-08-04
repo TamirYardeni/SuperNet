@@ -1,5 +1,5 @@
 <section *ngIf="!isPayed">
-  <div class="example-container mat-elevation-z8">
+  <div class="example-container mat-elevation-z8 cart-talbe">
       <mat-table #table [dataSource]="dataSource">
         
         <!-- Name Column -->
@@ -49,15 +49,28 @@
       </mat-table>
     </div>
 
-  <button mat-button [disabled]="cartDetails.length==0" (click)="saveCart()">Pay</button>
-  {{totalPrice}}
+  <button mat-raised-button class="payBtn" [disabled]="cartDetails.length==0" (click)="saveCart()">Pay</button>
+  <span>Total Price: </span>{{totalPrice}}
 </section>
 
 <section *ngIf="isPayed">
   payed!!!
   <button mat-button (click)="returnToMain()">Return to main page</button>
-  <button mat-button (click)="share()">Share</button>
+  <a class="btn btn-social btn-facebook" (click)="share()">
+      <span class="fa fa-facebook"></span>  Share
+    </a>
   <p>
     {{money}}
+    
   </p>
 </section>
+
+<footer class="conditions">
+        This Braintree Payment Services Agreement, and the agreements, policies, and documents incorporated herein, (this “Agreement”), is entered into by and between PayPal, Inc., a Delaware corporation whose address is 2211 North First Street, San Jose, CA 95131 (“Braintree,” “PayPal,” “we,” or “our”) and the entity or individual who enters into this Agreement (“Merchant” or “you”). This Agreement sets out the terms and conditions under which you may utilize the Braintree Payment Services.
+  
+  This Agreement becomes a legally binding contract and is effective as of the earliest date you do any of the following (the “Effective Date”):
+  
+  Create an account on the Braintree website; Accept this Agreement online; or Begin using the Braintree Payment Services. This Agreement, as it may be amended from time to time, will be available on the “Legal” tab on the Braintree website. In addition to the terms of this Agreement, you agree to be bound by the terms of our Privacy Policy and Acceptable Use Policy, as well as your applicable Bank Agreement(s), which are incorporated herein by this reference.
+  
+  Please be advised that this Agreement contains provisions, including an Agreement to Arbitrate, that govern how claims you and Braintree have against each other are resolved, which will, with limited exception, require the parties to submit claims they may have against one another to binding and final arbitration. Under the Agreement to Arbitrate, the parties will (1) only be permitted to pursue claims against each other on an individual basis, not as a plaintiff or class member in any class or representative action or proceeding and (2) only be permitted to seek relief (including monetary, injunctive, and declaratory relief) on an individual basis.
+</footer>

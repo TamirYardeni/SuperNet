@@ -13,3 +13,22 @@
     50% { -webkit-transform: scale(0.8); }
     100% { -webkit-transform: scale(1); }
   }
+
+  .btns{
+    display: inline;
+  }
+
+  .rBtn{
+    position: relative;
+    float: right;
+  }
+
+  .lBtn {
+    left:0%;
+  }
+
+  .add-amount-field-full-width{
+    position: relative;
+    margin-left: 6vw;
+  }
+  

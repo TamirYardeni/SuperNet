@@ -1,11 +1,12 @@
 <form [formGroup]="amountForm" *ngIf="!isSubmitted" #addProductForm novalidate class="amount-form" (ngSubmit)="onSubmit()">
   <mat-form-field *ngIf="!isWeight" class="add-amount-field-full-width">
-    <input matInput class="form-control" formControlName="amount" placeholder="Amount" value="">
+    <input matInput class="form-control" required type="number" formControlName="amount" placeholder="Amount" value="">
   </mat-form-field>
   <mat-form-field *ngIf="isWeight" class="add-amount-field-full-width">
-    <input matInput class="form-control" formControlName="weight" placeholder="Weight" value="">
-  </mat-form-field>
-  <pre>{{amountForm.value | json}}</pre>
-    <button mat-button type="submit" class="btn btn-primary">Click me!</button>
-    <button mat-button (click)="addToCartCancel()">Cancel</button>
+    <input matInput class="form-control" type="number" required formControlName="weight" placeholder="Weight" value="">
+  </mat-form-field> <br>
+  <div class="btns">
+    <button mat-raised-button color="primary" type="submit" class="btn btn-primary lBtn">Add to cart</button>
+    <button mat-raised-button color="warn" class="rBtn" (click)="addToCartCancel()">Cancel</button>
+  </div>
 </form>
