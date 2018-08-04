@@ -1,28 +1,27 @@
 <mat-spinner *ngIf="isSpinner"></mat-spinner>
 <form [formGroup]="myform" *ngIf="!isSubmitted" #addProductForm novalidate class="add-product-form" (ngSubmit)="onSubmit()">
   <mat-form-field class="add-product-field-full-width">
-    <input matInput class="form-control" formControlName="name" placeholder="Name" value="">
+    <input matInput class="form-control" required formControlName="name" placeholder="Name" value="">
   </mat-form-field>
 
   <mat-form-field class="add-product-field-full-width">
-    <input matInput class="form-control" formControlName="price" placeholder="Price" value="">
+    <input matInput type="number" class="form-control" required formControlName="price" placeholder="Price" value="">
   </mat-form-field>
 
   <mat-form-field class="add-product-field-full-width">
-    <input matInput class="form-control" formControlName="url" placeholder="photo url" value="">
+    <input matInput class="form-control" required formControlName="url" placeholder="photo url" value="">
   </mat-form-field>
 
   <mat-checkbox class="form-control" formControlName="isWeight">According to weight</mat-checkbox>
  
   <mat-form-field class="add-product-field-full-width">
-    <input matInput class="form-control" formControlName="weight" placeholder="Weight" value="">
+    <input matInput type="number" class="form-control" formControlName="weight" placeholder="Weight" value="">
   </mat-form-field>
   
-  <mat-select  class="form-control" formControlName="category" placeholder="Categoty">
+  <mat-select  class="form-control" required formControlName="category" placeholder="Categoty">
     <mat-option *ngFor="let category of categories" [value]="category._id">
       {{ category.name }}
     </mat-option>
   </mat-select>
-  <pre>{{myform.value | json}}</pre>
-    <button mat-button type="submit" class="btn btn-primary">Click me!</button>
+  <button mat-button type="submit" class="btn btn-primary">Add</button>
 </form>

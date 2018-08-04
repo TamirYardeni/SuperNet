@@ -42,6 +42,7 @@ export class AddProductDialogComponent implements OnInit {
   categories = [];
 
   onSubmit() {
+    debugger;
     if (this.myform.valid) {
       this.isSubmitted = true;
       this.isSpinner = true;
@@ -55,6 +56,8 @@ export class AddProductDialogComponent implements OnInit {
         this.isSpinner = false;
         this.dialogRef.close();
       });  
+    } else {
+      console.log ("form not valid");
     }
   }
 }

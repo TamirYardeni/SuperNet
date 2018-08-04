@@ -3,3 +3,9 @@
     height: 63vh;
     border-color: darkgrey;
 }
+
+
+.btnDelete {
+    position: absolute;
+    right: 0;
+}

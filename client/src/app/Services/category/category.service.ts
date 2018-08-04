@@ -17,6 +17,7 @@ export class CategoryService {
       return this.http.get('http://localhost:3000/api/v1/categories')
             .toPromise()
             .then(response => {
+              debugger;
               resolve(response.json());
               this.categoriesBS.next(response.json());
             })
