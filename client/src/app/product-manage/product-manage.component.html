@@ -70,10 +70,10 @@
   </mat-table>
 </div>
 
-<div class="manager">
-  <button mat-fab *ngIf="currentUser.isAdmin" (click)="openAddProductModal()">
-      <i class="material-icons">add</i>
+<div *ngIf="currentUser.isAdmin" class="manager">
+  <button mat-raised-button class="managerRight" color="primary" *ngIf="currentUser.isAdmin" (click)="openAddProductModal()">
+      Add Product
   </button>
-  <button mat-raised-button color="primary" *ngIf="currentUser.isAdmin" (click)="openCategoriesModal()">
+  <button mat-raised-button class="managerLeft" color="primary" *ngIf="currentUser.isAdmin" (click)="openCategoriesModal()">
     Manage Categories</button>
 </div>
