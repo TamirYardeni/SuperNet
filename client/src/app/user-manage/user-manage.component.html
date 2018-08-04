@@ -1,26 +1,21 @@
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <form [formGroup]="filterUserForm" novalidate class="filter-user-form" (ngSubmit)="onSubmit()">
+  <mat-card>
+    <mat-select class="form-control  space" formControlName="isAdmin" placeholder="User type">
+      <mat-option *ngFor="let type of userTypes" [value]="type.value">
+        {{ type.viewValue }}
+      </mat-option>
+    </mat-select>
 
-
-  <mat-select class="form-control" formControlName="isAdmin" placeholder="User type">
-    <mat-option *ngFor="let type of userTypes" [value]="type.value">
-      {{ type.viewValue }}
-    </mat-option>
-  </mat-select>
- 
-  <input matInput class="form-control" formControlName="email" placeholder="Email" value="">
+    <input matInput class="form-control  space" formControlName="email" placeholder="Email" value="">
     
-  <input matInput class="form-control" formControlName="name" placeholder="Name" value="">
-    <pre>{{filterUserForm.value | json}}</pre>
-    <button mat-button (click)="submit" class="btn btn-primary">Search</button>
-  </form>
+    <input matInput class="form-control  btnSpace" formControlName="name" placeholder="Name" value="">
+      
+    <button mat-button mat-raised-button color="primary"  (click)="submit" class="btn btn-primary">Search</button>
+  </mat-card>
+</form>
 
-<div class="example-container mat-elevation-z8">
-  <div class="example-header">
-    <mat-form-field>
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-    </mat-form-field>
-  </div>
-
+<div class="example-container mat-elevation-z8 user-table">
   <mat-table #table [dataSource]="dataSource">
 
     <!-- Id Column -->
@@ -56,4 +51,7 @@
   </mat-table>
 </div>
 
-<button mat-raised-button (click)="saveAdminChange()">Save</button>
+<button mat-raised-button *ngIf="userChangedStatuses.length > 0"
+   class="savedButton w3-container w3-center w3-animate-bottom" (click)="saveAdminChange()">
+   Save</button>
+

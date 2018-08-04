@@ -24,12 +24,6 @@ export class UserManageComponent implements OnInit {
     {value: false, viewValue: 'Regular'}
   ];
 
-  applyFilter(filterValue: string) {
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
-    this.dataSource.filter = filterValue;
-  }
-
   constructor(private userService:UserService) { 
     this.userId = this.userService.getCurrentUserNotFromServer()._id;
     this.userChangedStatuses=[];
@@ -74,6 +68,7 @@ export class UserManageComponent implements OnInit {
 
   saveAdminChange() {
     this.userService.updateAdminStatuses(this.userChangedStatuses);
+    this.userChangedStatuses=[];
   }
 
 }

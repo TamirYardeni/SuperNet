@@ -2,3 +2,44 @@
 .mat-cell, .mat-header-cell {
     overflow: visible!important;
 }
+
+.form-control {
+    width:17vw;
+    display: inline-block;
+}
+
+.space {
+    margin-right: 4vw;
+}
+
+.btnSpace {
+    margin-right: 8vw;
+}
+
+.mat-card {
+    margin-left: 10vw;
+    margin-right: 10vw;
+    margin-top: 4vh;
+}
+
+.filter-user-form {
+    align-content: center;
+}
+
+.user-table {
+    margin-top: 4vh;
+    width: 80vw;
+    position: relative;
+    left: 10vw;
+}
+
+.example-container{
+    overflow: auto;
+    height: 63vh;
+}
+
+.savedButton {
+    position: relative;
+    top: -62vh;
+    background-color: #FFC107;
+} 
