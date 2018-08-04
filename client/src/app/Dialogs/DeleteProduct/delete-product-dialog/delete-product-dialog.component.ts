@@ -16,9 +16,11 @@ export class DeleteProductDialogComponent implements OnInit {
               private productService:ProductService) { }
 
   isSpinner: Boolean;
+  isProductDeleted: Boolean;
 
   ngOnInit() {
     this.isSpinner = false;
+    this.isProductDeleted = false;
   }
 
   deleteProduct() {
@@ -26,17 +28,17 @@ export class DeleteProductDialogComponent implements OnInit {
 
     this.productService.deleteProduct(this.data.id).then((isDeleted) => {
       if (isDeleted) {
-        console.log('product deleted');
+        this.isProductDeleted = true;
       } else {
-        console.log('product not deleted');
+        this.isProductDeleted = false;
       }
 
       this.isSpinner = false;
-      this.dialogRef.close();
+      this.dialogRef.close(this.isProductDeleted);
     });  
   }
 
   deleteProductCancel() {
-    this.dialogRef.close();
+    this.dialogRef.close(this.isProductDeleted);
   }
 }

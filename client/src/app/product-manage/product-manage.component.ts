@@ -82,8 +82,11 @@ export class ProductManageComponent implements OnInit {
       data: product
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog closed: ${result}`);
-      //this.dialogResult = result;
+      debugger;
+      if (result) {
+        console.log(result);
+        this.loadProducts();
+      }
     });
   }
 
@@ -93,16 +96,28 @@ export class ProductManageComponent implements OnInit {
       data: product
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog closed: ${result}`);
-      //this.dialogResult = result;
+      debugger;
+      if (result) {
+        console.log(result);
+        this.loadProducts();
+      }
     });
   }
 
   deleteProduct(id) {
-    this.productService.deleteProduct(id);
+    this.productService.deleteProduct(id).then((isDeleted) => {
+      debugger;
+      if (isDeleted) {
+        this.loadProducts();
+      }
+    });
   }
 
   onSubmit() {
+    this.loadProducts();
+  }
+
+  loadProducts() {
     if (this.filterProductForm.valid) {
       this.isSubmitted = true;
       this.isSpinner = true;
@@ -120,8 +135,7 @@ export class ProductManageComponent implements OnInit {
       data: 'This text is passed into the dialog!'
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog closed: ${result}`);
-      //this.dialogResult = result;
+      
     });
   }
 }
