@@ -50,8 +50,30 @@
 .manager {
     position: absolute;
     bottom: 0px;
-    /* right: 25vw; */
-    left: 42vw;
+    width: 42vw;
     background-color: white;
+    -webkit-box-shadow: 1px 1px 3px 2px;
     box-shadow: 1px 1px 3px 2px;
+    left: 50%;
+    margin-left: -21vw;
+    padding-top: 2vh;
+    padding-left: 4vw;
+    height: 10vh;
+}
+
+.manager button {
+    width: 14vw;
+}
+
+.managerRight {
+    margin-right: 6vw;
+}
+
+.managerLeft {
+    
+}
+
+.example-container{
+    overflow: auto;
+    height: 63vh;
 }
