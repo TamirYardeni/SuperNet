@@ -1,4 +1,12 @@
-
+@font-face {
+    font-family: myFirstFont;
+    src: url(sansation_light.woff);
+}
+h1{
+    color: blue; text-shadow: black 0.1em 0.1em 0.2em;
+    margin-left:50px;
+    font-family: myFirstFont;
+}
 .chart
   {
       margin-left: 100px;
@@ -9,4 +17,47 @@
  .bar:hover {
     fill: brown;
   }
+  .axis text {
+    font: 10px sans-serif;
+  }
+/*  within class "axis", all paths and lines  */
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+/*  within class "x.axis", all paths */
+.x.axis path {
+  display: none;
+}    
+
+/*piechart*/
+
+.pie {
+    margin: 20px;
+  }
   
+  svg {
+      float: left;
+  }
+  
+  .legend {
+    float: left;
+    font-family: "Verdana";
+    font-size: .7em;
+  }
+  
+  .pie text {
+    font-family: "Verdana";
+    fill: #000;
+  }
+  
+  .pie .name-text{
+    font-size: .8em;
+  }
+  
+  .pie .value-text{
+    font-size: 3em;
+  }
