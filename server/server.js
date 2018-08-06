@@ -257,6 +257,26 @@ var changeAddress = function(req, res) {
   });
 }
 
+// Graphs
+var userStatistics = function(req,res){
+  snUser.aggregate([
+    {$project:{name:"$fullName", value: { $size: "$carts" }}}
+    ],function(err,statistics){
+    res.json(statistics);
+  })
+}
+
+var productStatistics = function(req,res){
+  snUser.aggregate([
+    {$unwind:"$carts"}
+    ,{$unwind:"$carts.detailes"},
+    {"$group" : {_id:"$carts.detailes._id", value:{$sum:1},name:{$first:"$carts.detailes.name"}}},
+    {$project:{_id:0,name:1,value:1}}
+    ],function(err,statistics){
+      res.json(statistics);
+    })
+}
+
 router.route('/auth/me')
   .get(authenticate, getCurrentUser, getOne);
 
@@ -289,6 +309,12 @@ router.route('/categories')
 
 router.route('/categories/:id')
   .delete(authenticate, deleteCategory);
+
+router.route('/statistics/users')
+  .get(authenticate,userStatistics);
+
+router.route('/statistics/products')
+  .get(authenticate,productStatistics);
 
 app.use('/api/v1', router);
 
