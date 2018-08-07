@@ -78,6 +78,14 @@ export class UserService {
     });
   }
 
+  checkIsAdmin() {    
+    debugger;
+    return new Promise((resolve, reject) => {
+      debugger;
+      this.getCurrentUser().then(user => resolve(user['isAdmin'])).catch(() => reject(false));
+    });
+  }
+
   getCurrentUser() {
     return new Promise((resolve, reject) => {
       return this.http.get('http://localhost:3000/api/v1/auth/me').toPromise().then(response => {

@@ -1,6 +1,7 @@
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './Guards/auth-guard.guard';
+import { AdminGuard } from './Guards/admin-guard.guard';
 import { AnonymousGuard } from './Guards/anonymous-guard.guard';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -24,12 +25,12 @@ const appRoutes: Routes = [
     {
         path: 'users',
         component: UserManageComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AdminGuard]
     },
     {
         path: 'statistics',
         component: StatisticsComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AdminGuard]
     },
     {
         path: 'products',
@@ -58,7 +59,8 @@ const appRoutes: Routes = [
     ],
     providers: [
         AuthGuard,
-        AnonymousGuard
+        AnonymousGuard,
+        AdminGuard
     ]
 })
 export class AppRoutingModule { }
