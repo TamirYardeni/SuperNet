@@ -277,6 +277,75 @@ var productStatistics = function(req,res){
     })
 }
 
+var recommendedByProduct = function(req,res){
+  debugger;
+  var id = req.params.id
+  snUser.aggregate([
+    {$unwind:"$carts"}
+    ],function(err,statistics){
+      var relevantItems = [];
+
+      // Get all cart detailes where the product exists in
+      statistics.forEach(function(item){
+        var isPush = false;
+        item.carts.detailes.forEach(function(dtlItem){
+          if (dtlItem.id == id) {
+            isPush = true;
+          }
+        });
+
+        if (isPush) { relevantItems.push(item); }
+      });
+
+      var productDictionary = {};
+
+
+      // Run over every cart
+      relevantItems.forEach(function(item){
+        var products = {};
+        item.carts.detailes.forEach(function(prd){
+          products[prd.id] = 1;
+        });
+
+        for (const [key, value] of Object.entries(products)) {
+          // Do not insert key of the product we do the function on
+          // Update the dictionary -
+          // (contains the product id and amount of carts he appeared at from the relevant carts)
+          if (key != id) {
+            if (productDictionary[key]!=null){
+              productDictionary[key] = productDictionary[key] + 1;
+            } else {
+              productDictionary[key] = 1;
+            }
+          }
+        }
+      });
+
+      var recommendedProductId = Object.keys(productDictionary).reduce((a, b) => productDictionary[a] > productDictionary[b] ? a : b);
+
+      debugger;
+      if (recommendedProductId!=null) {
+        snProducts.findById({_id:recommendedProductId}, function(err, product){
+          if (err!=null) {
+            res.json(err);
+          } else {
+            debugger;
+            console.log(product._doc);
+            res.json(product._doc);
+          }          
+        });
+      } else {
+        snProducts.findOne(function(err, product){
+          if (err!=null) {
+            res.json(err);
+          } else {
+            res.json(product);
+          }          
+        });
+      }
+    })
+}
+
 router.route('/auth/me')
   .get(authenticate, getCurrentUser, getOne);
 
@@ -315,6 +384,9 @@ router.route('/statistics/users')
 
 router.route('/statistics/products')
   .get(authenticate,productStatistics);
+
+router.route('/statistics/products/:id')
+  .get(authenticate,recommendedByProduct);
 
 app.use('/api/v1', router);
 

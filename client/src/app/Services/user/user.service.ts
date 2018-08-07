@@ -140,6 +140,18 @@ export class UserService {
     });
   }
 
+  getRecommendedByProduct(product) {
+    return new Promise((resolve, reject) => {
+        return this.http.get('http://localhost:3000/api/v1/statistics/products/'+product._id)
+              .toPromise()
+              .then(response => {
+                
+                resolve(response.json());
+              })
+              .catch((e) => { reject();}); 
+    });
+  }
+
   updateAdminStatuses(adminStatuses) {
     return new Promise((resolve, reject) => {
       return this.http.post('http://localhost:3000/api/v1/users/status', adminStatuses)

@@ -1,0 +1,8 @@
+
+  <h1>Want to add - {{recommendedProduct.name}}</h1>
+  <img class="productImage" src={{recommendedProduct.imageUrl}} />
+  <mat-spinner *ngIf="isSpinner"></mat-spinner>
+<section>
+  <button mat-raised-button (click)="addToCart(true)">Yes</button>
+  <button mat-raised-button (click)="addToCart(false)">Continue without add</button>
+</section>

@@ -51,4 +51,9 @@ export class CartService {
   getCartDetails() {
     return this.products;
   }
+
+  getRandomProductFromCart() {
+    var rand = Math.floor(Math.random() * this.products.length);
+    return this.products[rand];
+  }
 }

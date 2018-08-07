@@ -35,6 +35,7 @@ import { AddToCartDialogComponent } from './Dialogs/AddToCart/add-to-cart-dialog
 import { DeleteProductDialogComponent } from './Dialogs/DeleteProduct/delete-product-dialog/delete-product-dialog.component';
 import { CatergoriesDialogComponent } from './Dialogs/Category/catergories-dialog/catergories-dialog.component';
 import { MapComponent } from './map/map.component';
+import { RecommendedComponent } from './Dialogs/Recommended/recommended/recommended.component';
 
 export function getAuthHttp(http: Http) {
   return new AuthHttp(new AuthConfig({
@@ -61,7 +62,8 @@ export function getAuthHttp(http: Http) {
     AddToCartDialogComponent,
     DeleteProductDialogComponent,
     CatergoriesDialogComponent,
-    MapComponent
+    MapComponent,
+    RecommendedComponent
   ],
   exports: [
     ReactiveFormsModule
@@ -96,7 +98,7 @@ export function getAuthHttp(http: Http) {
     },
   ],
   entryComponents: [AddProductDialogComponent, AddToCartDialogComponent, 
-                    DeleteProductDialogComponent,CatergoriesDialogComponent],
+                    DeleteProductDialogComponent,CatergoriesDialogComponent, RecommendedComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

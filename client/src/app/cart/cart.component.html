@@ -49,13 +49,19 @@
       </mat-table>
     </div>
 
-  <button mat-raised-button class="payBtn" [disabled]="cartDetails.length==0" (click)="saveCart()">Pay</button>
+  <button mat-raised-button class="payBtn" [disabled]="cartDetails.length==0" (click)="openRecommendedModal()">Pay</button>
   <span>Total Price: </span>{{totalPrice}}
 </section>
 
 <section *ngIf="isPayed">
-  payed!!!
-  <button mat-button (click)="returnToMain()">Return to main page</button>
+  <h1>Your order has been registered and will be treated as soon as possible! </h1>
+  <p>
+    Thank you for your order! Mail with invoice sent to the e-mail address you specified at the time of booking!
+    <br>
+    If you have any questions or concerns please contact our customer service at 052-0000000, email supernet@gmail.com or contact us
+  </p>
+
+  <button mat-raised-button (click)="returnToMain()">Return to main page</button>
   <a class="btn btn-social btn-facebook" (click)="share()">
       <span class="fa fa-facebook"></span>  Share
     </a>

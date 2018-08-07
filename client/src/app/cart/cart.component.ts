@@ -4,6 +4,8 @@ import {MatTableDataSource} from '@angular/material';
 import { Router } from '@angular/router';
 import { UserService } from '../Services/user/user.service';
 import { HttpClient } from '@angular/common/http';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { RecommendedComponent } from '../Dialogs/Recommended/recommended/recommended.component';
 
 @Component({
   selector: 'app-cart',
@@ -19,7 +21,8 @@ export class CartComponent implements OnInit {
   constructor(private cartService:CartService,
               private http: HttpClient,
               private router: Router,
-              private userService: UserService) { }
+              private userService: UserService,
+              private dialog:MatDialog) { }
 
   cartDetails;
   isPayed: Boolean;
@@ -69,6 +72,20 @@ export class CartComponent implements OnInit {
     });
 
     this.totalPrice = total;
+  }
+
+  openRecommendedModal() {
+    let dialogRef = this.dialog.open(RecommendedComponent, {
+      width: '600px',
+      data: ''
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      debugger;
+      if (result) {
+        console.log(result);
+        this.saveCart();
+      }
+    });
   }
 }
 
