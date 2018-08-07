@@ -24,6 +24,28 @@ var passportConfig = require('./passport');
 passportConfig();
 
 var app = express();
+ const port = 3000;
+
+//CHAT
+let http = require('http');
+let server = http.Server(app);
+
+let socketIO = require('socket.io');
+let io = socketIO(server);
+
+io.on('connection', (socket) => {
+  console.log('user connected');
+
+  socket.on('new-message', (message) => {
+    io.emit('new-message',message);
+  });
+});
+
+server.listen(port, () => {
+  console.log(`started on port: ${port}`);
+});
+
+
 
 // enable cors
 var corsOption = {
@@ -318,7 +340,8 @@ router.route('/statistics/products')
 
 app.use('/api/v1', router);
 
-app.listen(3000);
-module.exports = app;
+//CHAT
+//app.listen(3000);
+//module.exports = app;
 
 console.log('Server running at http://localhost:3000/');

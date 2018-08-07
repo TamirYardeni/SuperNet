@@ -9,6 +9,7 @@
       <button *ngIf="isAdmin" mat-button color="white" (click)="menuButtonClicked('users')">Users</button>
       <button *ngIf="isAdmin" mat-button color="white" (click)="menuButtonClicked('products')">Products</button>
       <button *ngIf="isAdmin" mat-button color="white" (click)="menuButtonClicked('statistics')">Statistics</button>
+      <button *ngIf="isAdmin" mat-button color="white" (click)="menuButtonClicked('Public Sale')">Chat</button>
 
       <button *ngIf="!isAdmin" mat-button color="white" (click)="menuButtonClicked('profile')">Profile</button>
       <button *ngIf="!isAdmin" mat-button color="white" (click)="menuButtonClicked('products')">Products</button>

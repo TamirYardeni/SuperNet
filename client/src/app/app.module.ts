@@ -1,3 +1,4 @@
+import { ChatService } from './Services/chat.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
@@ -35,6 +36,7 @@ import { AddToCartDialogComponent } from './Dialogs/AddToCart/add-to-cart-dialog
 import { DeleteProductDialogComponent } from './Dialogs/DeleteProduct/delete-product-dialog/delete-product-dialog.component';
 import { CatergoriesDialogComponent } from './Dialogs/Category/catergories-dialog/catergories-dialog.component';
 import { MapComponent } from './map/map.component';
+import { ChatComponent } from './chat/chat.component';
 
 export function getAuthHttp(http: Http) {
   return new AuthHttp(new AuthConfig({
@@ -61,7 +63,8 @@ export function getAuthHttp(http: Http) {
     AddToCartDialogComponent,
     DeleteProductDialogComponent,
     CatergoriesDialogComponent,
-    MapComponent
+    MapComponent,
+    ChatComponent
   ],
   exports: [
     ReactiveFormsModule
@@ -89,6 +92,7 @@ export function getAuthHttp(http: Http) {
     CategoryService,
     MapService,
     AUTH_PROVIDERS,
+    ChatService,
     {
       provide: AuthHttp,
       useFactory: getAuthHttp,

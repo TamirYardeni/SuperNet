@@ -32,8 +32,8 @@ export class StatisticsComponent implements OnInit {
 
 drawBarChart(){
   //let data = [{name: 'A', value: 5},{name: 'B', value: 5},{name: 'C', value: 1},{name: 'D', value: 6}];
-  let data = this.dataUsers;
-  let width = 200, height = 200;
+  var data = this.dataUsers;
+  var width = 200, height = 200;
 
   var margin = {top: 20, right: 30, bottom: 30, left: 40},
   // define inner canvas "width" and "height"

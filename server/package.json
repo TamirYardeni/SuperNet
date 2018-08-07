@@ -22,6 +22,7 @@
     "jsonwebtoken": "^7.3.0",
     "mongoose": "^4.9.0",
     "passport": "^0.3.2",
-    "passport-facebook-token": "^3.3.0"
+    "passport-facebook-token": "^3.3.0",
+    "socket.io": "^2.1.1"
   }
 }
