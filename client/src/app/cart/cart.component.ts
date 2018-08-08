@@ -6,6 +6,7 @@ import { UserService } from '../Services/user/user.service';
 import { HttpClient } from '@angular/common/http';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { RecommendedComponent } from '../Dialogs/Recommended/recommended/recommended.component';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-cart',
@@ -22,7 +23,8 @@ export class CartComponent implements OnInit {
               private http: HttpClient,
               private router: Router,
               private userService: UserService,
-              private dialog:MatDialog) { }
+              private dialog:MatDialog,
+              public snackBar: MatSnackBar) { }
 
   cartDetails;
   isPayed: Boolean;
@@ -39,9 +41,15 @@ export class CartComponent implements OnInit {
 
   saveCart() {
     this.cartService.saveCart().then((isAdded)=> {
-      this.isPayed = true;
-      this.cartService.deleteAllCart();
-      this.totalPrice = 0.0;
+      if (isAdded) {
+        this.isPayed = true;
+        this.cartService.deleteAllCart();
+        this.totalPrice = 0.0;
+      } else {
+        this.snackBar.open("Could not execute payment", 'Error', {
+          duration: 2000,
+        });
+      }
     });
   }
 

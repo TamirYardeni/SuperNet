@@ -27,7 +27,9 @@ export class RecommendedComponent implements OnInit {
   }
 
   getRecommendedProduct(product) {
+    debugger;
     this.userService.getRecommendedByProduct(product).then((product) => {
+      debugger;
       this.recommendedProduct = product;
       this.isSpinner = false;
     });

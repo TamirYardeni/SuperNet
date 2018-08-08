@@ -13,7 +13,9 @@
 
       <button *ngIf="!isAdmin" mat-button color="white" (click)="menuButtonClicked('profile')">Profile</button>
       <button *ngIf="!isAdmin" mat-button color="white" (click)="menuButtonClicked('products')">Products</button>
-      <button *ngIf="!isAdmin" mat-button color="white" (click)="menuButtonClicked('cart')">Pay</button>
+      <button *ngIf="!isAdmin" mat-button color="white" (click)="menuButtonClicked('cart')">Pay
+        <span class="badge" *ngIf="badgeCount > 0">{{badgeCount}}</span>
+      </button>
 
 
       <button *ngIf="isLoggedIn" mat-button color="white" (click)="logout()">Logout!</button>

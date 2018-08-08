@@ -3,6 +3,7 @@ import {FormControl, Validators, FormGroup} from '@angular/forms';
 import {ProductService} from '../../../Services/product/product.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {CategoryService} from '../../../Services/category/category.service';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-add-product-dialog',
@@ -13,7 +14,8 @@ export class AddProductDialogComponent implements OnInit {
   @ViewChild('addProductForm') form: ElementRef;
   constructor(private productService:ProductService,
     public dialogRef: MatDialogRef<AddProductDialogComponent>,
-    private categoryService:CategoryService) { 
+    private categoryService:CategoryService,
+    public snackBar: MatSnackBar) { 
       
       this.categoryService.categories.subscribe(res => {
         if(res!=null){
@@ -48,16 +50,22 @@ export class AddProductDialogComponent implements OnInit {
       this.isSpinner = true;
       this.productService.addProduct(this.myform.value).then((isAdded) => {
         if (isAdded) {
-          console.log('product added');
+           this.snackBar.open("product added", 'Info', {
+            duration: 2000,
+           });
         } else {
-          console.log('product not added');
+          this.snackBar.open("product not added", 'Error', {
+            duration: 2000,
+           });;
         }
 
         this.isSpinner = false;
         this.dialogRef.close();
       });  
     } else {
-      console.log ("form not valid");
+      this.snackBar.open("Form not valid", 'Error', {
+        duration: 2000,
+       });
     }
   }
 }

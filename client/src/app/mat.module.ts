@@ -25,8 +25,10 @@ import {
   MatTableModule,
   MatCheckboxModule,
   MatSelectModule,
-  MatButtonToggleModule
+  MatButtonToggleModule,
+  MatSnackBarModule
 } from '@angular/material';
+
 
 const mats = [
   MatFormFieldModule,
@@ -44,7 +46,8 @@ const mats = [
   MatCheckboxModule,
   MatSelectModule,
   MatButtonToggleModule,
-  ScrollDispatchModule
+  ScrollDispatchModule,
+  MatSnackBarModule
 ]
 
 @NgModule({

@@ -3,6 +3,7 @@ import {FormControl, Validators, FormGroup} from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { Button } from 'protractor';
 import {CartService} from '../../../Services/cart/cart.service';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-add-to-cart-dialog',
@@ -13,7 +14,8 @@ export class AddToCartDialogComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<AddToCartDialogComponent>, 
     @Inject(MAT_DIALOG_DATA) public data:any,
-    private cartService:CartService) { 
+    private cartService:CartService,
+    public snackBar: MatSnackBar) { 
   }
 
   amountForm: FormGroup;
@@ -51,6 +53,10 @@ export class AddToCartDialogComponent implements OnInit {
       cartNode.amount = this.amountForm.value.amount;
       this.cartService.addToCart(cartNode);
       this.closeModal();
+    } else {
+      this.snackBar.open("Form not valid", 'Error', {
+        duration: 2000,
+       });
     }
   }
 }

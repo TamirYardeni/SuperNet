@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { UserService } from './Services/user/user.service';
 import { Router } from '@angular/router';
 import {CategoryService} from './Services/category/category.service';
+import { CartService } from './Services/cart/cart.service';
 
 @Component({
   selector: 'app-root',
@@ -17,15 +18,18 @@ export class AppComponent implements OnInit{
 
   public isAdmin :Boolean;
   public isLoggedIn :Boolean;
+  public badgeCount: Number;
 
   constructor(private userService: UserService, private router: Router,
-  private categoryService:CategoryService) { 
+  private categoryService:CategoryService,
+  private cartService:CartService) { 
     this.userService.initCurrentUser();
   }
 
   ngOnInit() {
     /*this.userService.getCurrentUser().then(profile => this.currentUser = profile)
         .catch(() => this.currentUser = {});*/
+    this.badgeCount = 0;
 
     this.userService.isAdmin.subscribe(res => {
       if(res!=null){
@@ -40,6 +44,12 @@ export class AppComponent implements OnInit{
     });
 
     this.categoryService.getAllCategories();
+
+    this.cartService.productsAmount.subscribe(res => {
+      if(res!=null){
+        this.badgeCount = res;
+      }
+    });
 
   }
 

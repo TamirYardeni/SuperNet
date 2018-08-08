@@ -3,6 +3,7 @@ import {AuthHttp} from 'angular2-jwt';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
 import {UserService} from '../user/user.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class CartService {
@@ -15,6 +16,9 @@ export class CartService {
   totlPrice: Number;
   products: Array<JSON>;
 
+  private productsAmountBS = new BehaviorSubject<any>(null); 
+  productsAmount = this.productsAmountBS.asObservable();
+
   saveCart() {
     return new Promise((resolve, reject) => {
       var user = this.userService.getCurrentUserNotFromServer();
@@ -23,25 +27,31 @@ export class CartService {
               .then(response => {
                 resolve(true);
               })
-              .catch((e) => { resolve(false);});
+              .catch((e) => { 
+                resolve(false);
+              });
     });
   }
 
   addToCart(cartNode) {
     this.products.push(JSON.parse(JSON.stringify(cartNode)));
-    console.log(this.products);
+    this.productsAmountBS.next(this.products.length);
   }
 
   deleteFromCart(product) {
     this.products.forEach(function(item, index, object) {
+      debugger;
       if (item === product) {
         object.splice(index, 1);
       }
     });
+
+    this.productsAmountBS.next(this.products.length);
   }
 
   deleteAllCart() {
     this.products = [];
+    this.productsAmountBS.next(this.products.length);
   }
 
   changeAmount(amount, isWeight) {

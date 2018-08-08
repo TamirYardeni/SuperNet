@@ -42,9 +42,9 @@ export class CategoryService {
             .toPromise()
             .then(response => {
               this.getAllCategories();
-              resolve(response.json());
+              resolve(true);
             })
-            .catch((e) => { reject();}); 
+            .catch((e) => { reject(false);}); 
     });
   }
 }
