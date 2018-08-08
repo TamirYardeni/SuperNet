@@ -2,7 +2,7 @@
     font-family: myFirstFont;
     src: url(sansation_light.woff);
 }
-h1{
+#titlestatistics{
     color: blue; text-shadow: black 0.1em 0.1em 0.2em;
     margin-left:50px;
     font-family: myFirstFont;

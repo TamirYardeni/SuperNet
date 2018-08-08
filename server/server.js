@@ -34,7 +34,7 @@ let socketIO = require('socket.io');
 let io = socketIO(server);
 
 io.on('connection', (socket) => {
-  console.log('user connected');
+ // console.log('user connected');
 
   socket.on('new-message', (message) => {
     io.emit('new-message',message);
@@ -328,7 +328,7 @@ var recommendedByProduct = function(req,res){
         item.carts.detailes.forEach(function(prd){
           products[prd.id] = 1;
         });
-
+        debugger;
         for (const [key, value] of Object.entries(products)) {
           // Do not insert key of the product we do the function on
           // Update the dictionary -
